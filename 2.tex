@@ -9,11 +9,12 @@ ensembles other than micro-canonical ensemble.\cite{Andersen:1980ew}
 In his ground-breaking paper, he proposed ways to calculate properties average
 over isoenthalpic-isobaric (NPH) ensemble. In the article, he introduced
 a Lagrangian
-\begin{equation}
+\begin{equation}\label{eq:lagrang}
 	\mathcal{L}(\bm{\rho}, \dot{\bm{\rho}}, Q, \dot{ Q }) = \frac{ 1 }{ 2 } m
 	Q^{\frac{ 2 }{ 3 }}
 	\sum_{i=1}^{N} \dot{ \bm{\rho} } \cdot \dot{ \bm{\rho} } - \sum_{i<j=1}^{N}
-	u (Q^{\frac{ 1 }{ 3 }} \rho_{ij}) + \frac{ 1 }{ 2 } M \dot{ Q } ^2 - \alpha Q,
+	u \big(Q^{\frac{ 1 }{ 3 }} \rho_{ij} \big) + \frac{ 1 }{ 2 } M \dot{ Q } ^2 -
+	\alpha Q,
 \end{equation}
 where $\bm{\rho}_i = \bm{r}_i / V ^{\frac{ 1 }{ 3 }}$, $i=1$, $2$, $\ldots$,~$N$,
 is called scaled coordinates. Here $\alpha$ and $M$ are constants,
@@ -37,7 +38,7 @@ The Hamiltonian is thus
 		(\bm{\rho}, \dot{\bm{\rho}}, Q, \dot{ Q })\\
 		&= \frac{ 1 }{ 2 m Q^{\frac{ 2 }{ 3 }} }
 		\sum_{i=1}^{N} \bm{\pi}_i \cdot \bm{\pi}_i
-		+ \sum_{i<j=1}^{N} u(Q^{\frac{ 1 }{ 3 }} \rho_{ij}) + \frac{ 1 }{ 2 M }
+		+ \sum_{i<j=1}^{N} u\big(Q^{\frac{ 1 }{ 3 }} \rho_{ij}\big) + \frac{ 1 }{ 2 M }
 		\Pi^2 + \alpha Q.
 	\end{split}
 \end{equation}
@@ -53,7 +54,7 @@ So the equations of motions are
 	\dot{ \Pi }         & = - \frac{ \partial \mathcal{H} }{ \partial Q } =
 	- \frac{ 1 }{ 3Q } \bigg(
 	- \frac{ 1 }{ m Q^{\frac{ 2 }{ 3 }} }	\sum_{i=1}^{N} \bm{\pi}_i \cdot \bm{\pi}_i
-	+ Q^{\frac{ 1 }{ 3 }} \sum_{i<j} \rho_{ij} u'(Q^{\frac{ 1 }{ 3 } \rho_{ij}}) +
+	+ Q^{\frac{ 1 }{ 3 }} \sum_{i<j} \rho_{ij} u'\big(Q^{\frac{ 1 }{ 3 } \rho_{ij}}\big) +
 	3 \alpha Q
 	\bigg)
 \end{align}
@@ -79,15 +80,23 @@ where
 	- E \big).
 \end{equation}
 
-The scaled system has a correspondence 
-\begin{align}
-  V &= Q,\\
-  \bm{r}_i &= Q^{\frac{ 1 }{ 3 }} \bm{\rho}_i,\\
-  \bm{p}_i &= \bm{\pi}_i / Q^{\frac{ 1 }{ 3 }}
+The scaled system has a correspondence
+\begin{align}\label{eq:corres}
+	V        & = Q,                               \\
+	\bm{r}_i & = Q^{\frac{ 1 }{ 3 }} \bm{\rho}_i, \\
+	\bm{p}_i & = \bm{\pi}_i / Q^{\frac{ 1 }{ 3 }}
 \end{align}
 to the phase space of a system spanned by $\{ \bm{r}_i \}$ and
-$\{ \bm{p}_i \}$.
+$\{ \bm{p}_i \}$. Thus the trajectory
+$\bm{\rho}(t)$, $\bm{\pi}(t)$, $Q(t)$, and $\Pi(t)$ have its
+correspondence $V(t)$, $\bm{r}_i(t)$ and $\bm{p}_i(t)$ by
+$\eqref{eq:corres}$.
+Since the time average $\overline{F}$ of any function $F$
+derived by this trajectory is the same as an
+isoentahlpic-isobaric ensemble average of $F_{NPH}$, and
+$\overline{G} = \overline{F}$, thus we get the NPH ensemble average.
+The ensemble pressure $P$ is $\alpha$ in $\eqref{eq:lagrang}$ indeed.
 
 
-
+\subsection{Rahman and Parrinello approach}
 
