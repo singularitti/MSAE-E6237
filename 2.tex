@@ -12,7 +12,7 @@ a Lagrangian
 \begin{equation}\label{eq:lagrang}
 	\mathcal{L}(\bm{\rho}, \dot{\bm{\rho}}, Q, \dot{ Q }) = \frac{ 1 }{ 2 } m
 	Q^{\frac{ 2 }{ 3 }}
-	\sum_{i=1}^{N} \dot{ \bm{\rho} } \cdot \dot{ \bm{\rho} } - \sum_{i<j=1}^{N}
+	\sum_{i=1}^{N} \dot{ \bm{\rho} }_i \cdot \dot{ \bm{\rho} }_i - \sum_{i<j=1}^{N}
 	u \big(Q^{\frac{ 1 }{ 3 }} \rho_{ij} \big) + \frac{ 1 }{ 2 } M \dot{ Q } ^2 -
 	\alpha Q,
 \end{equation}
@@ -86,8 +86,11 @@ The scaled system has a correspondence
 	\bm{r}_i & = Q^{\frac{ 1 }{ 3 }} \bm{\rho}_i, \\
 	\bm{p}_i & = \bm{\pi}_i / Q^{\frac{ 1 }{ 3 }}
 \end{align}
-to the phase space of a system spanned by $\{ \bm{r}_i \}$ and
-$\{ \bm{p}_i \}$. Thus the trajectory
+to the phase space of a system spanned by
+$\bm{r}_i, i=1$,~$\ldots$,~$N$ and
+$\bm{p}_i, i=1$,~$\ldots$,~$N$,
+where $\bm{r}_i$ is the particle coordinate, $\bm{p}_i$ is its momentum.
+Thus the trajectory
 $\bm{\rho}(t)$, $\bm{\pi}(t)$, $Q(t)$, and $\Pi(t)$ have its
 correspondence $V(t)$, $\bm{r}_i(t)$ and $\bm{p}_i(t)$ by
 $\eqref{eq:corres}$.
@@ -98,5 +101,84 @@ $\overline{G} = \overline{F}$, thus we get the NPH ensemble average.
 The ensemble pressure $P$ is $\alpha$ in $\eqref{eq:lagrang}$ indeed.
 
 
-\subsection{Rahman and Parrinello approach}
+\subsection{Rahman and Parrinello's approach}
 
+Rahman and Parrinello then proposed a method to perform
+MD simulations which allows volume and shape of the MD cell
+to change with time.\cite{Parrinello:1980kx}
+If the MD cell edges are $\bm{a}$, $\bm{b}$
+and $\bm{c}$, which are time dependent. Stack them to form a
+matrix $h = \{ \bm{a}, \bm{b}, \bm{c} \}$, and the volume of a cell
+is then $\Omega = \bm{a} \cdot \bm{b} \times \bm{c}$, the metric
+tensor is $g = h\tran h$. Let $\bm{r}_i = \xi_i \bm{a} + \eta_i \bm{b}
++ \zeta_i \bm{c} = h \bm{s}_i$, where $\bm{s}_i$ store its coordinates
+$\xi_i$, $\eta_i$, and $\zeta_i$, each from $0$ to $1$. Then they
+introduced a Lagrangian
+\begin{equation}
+	\mathcal{L} = \frac{ 1 }{ 2 } \sum_{i=1}^{N} m_i \dot{ \bm{s} }_i \tran
+	g \dot{ \bm{s} }_i - \sum_{i=1}^{N} \sum_{i<j} \phi (r_{ij}) +
+	\frac{ 1 }{ 2 } W \Tr (\dot{h} \tran \dot{h}) - P \Omega,
+\end{equation}
+where $r_{ij}^2 = (\bm{s}_i - \bm{s}_j)\tran g (\bm{s}_i - \bm{s}_j)$,
+$P$ is the external hydrostatic pressure, $\phi(r_{ij})$ is the pair
+potential, $W$ is the fictitious mass.
+
+Then the equations of motion are
+\begin{align}\label{eq:rplag}
+	\ddot{s}_i & = \frac{ 1 }{ m_i } \sum_{j\neq i}
+	\frac{ \phi'(r_{ij}) }{ r_{ij} } (\bm{s}_i - \bm{s}_j) - g^{-1}\dot{g}
+	\dot{ \bm{s} }_i, \quad i, j = 1, 2, \ldots, N,\\
+	\ddot{h}   & = \frac{ 1 }{ W } (\Pi - P) \sigma, \label{eq:hdd}
+\end{align}
+where $\sigma = \{\bm{b}\times \bm{c}, \bm{c}\times \bm{a},
+\bm{a}\times \bm{b}\}$, matrix $\Pi$ is given by
+\begin{equation}
+	\Omega \Pi = \sum_{i=1}^{N} m_i \bm{v}_i \otimes \bm{v}_i
+	+ \sum_{i=1}^{N} \sum_{i<j} \frac{ \phi'(r_{ij}) }{ r_{ij} }
+	(\bm{r}_i - \bm{r}_j)\otimes (\bm{r}_i - \bm{r}_j),
+\end{equation}
+with $\bm{v}_i = h \bm{s}_i$.
+Then Andersen's case is a special one of $\eqref{eq:rplag}$,
+where $h = \diag (\Omega^{\frac{ 1 }{ 3 }}, \ldots,
+\Omega^{\frac{ 1 }{ 3 }})$ and $g^{-1} \dot{g} =
+\frac{ 2 \dot{\Omega} }{3 \Omega }$. Though his equation for
+$\ddot{V}$ cannot be obtained from $\eqref{eq:hdd}$. But
+this Lagrangian also results in a isoenthalpic, isobaric ensemble,
+though with a small correction from the third term.
+
+\subsection{Wentzcovitch's approach}
+
+Wentzcovitch stated that R and P's method is dependent on
+the choice of cell edges.\cite{Wentzcovitch:1991ka}
+For different $\bm{a}$, $\bm{b}$, and
+$\bm{c}$, the fictitious kinetic energy $K_L$ term could be different.
+For MD simulation of $\sim 10^2$ particles the problem may
+not be too serious. But if the cell experience a modular transformation,
+the nominal value of $K_L$, and the resulted forces and trajectories
+will be dependent on the choice of $h$. Then she proposed a new
+Lagrangian
+\begin{equation}\label{eq:wenzlag}
+	\mathcal{L} = \sum_{i=1}^{N} \dot{ \bm{q} }_i\tran d \dot{ \bm{q} }_i
+	- \sum_{i=1}^{N} \sum_{i<j} \phi(r_{ij}) + \frac{ W }{ 2 }
+	\Tr \big( \dot{ \epsilon } \dot{ \epsilon }\tran \big) - P \Omega,
+\end{equation}
+where $\epsilon$ is the strain, $\bm{q}_i$ is the defined as
+$\bm{r}_i = (1+\epsilon) \bm{q}_i$, thus $d = (1 + \epsilon)\tran
+(1+\epsilon)$.
+The equations of motion are
+\begin{align}
+	\ddot{\epsilon} & = \frac{ \Omega }{ W } (\Pi - P)
+	\big((1+\epsilon)\tran\big)^{-1},\\
+	\ddot{q}_i      & = - \frac{ 1 }{ m_i } \sum_{\substack{i, j=1 \\j\neq i}}^{N}
+	\frac{ \phi'(r_{ij}) }{ r_{ij} }(\bm{q}_i - \bm{q}_j) - d^{-1} \dot{ d }
+	\dot{ \bm{q} }_i.
+\end{align}
+An equivalent form of $\eqref{eq:wenzlag}$ is
+\begin{equation}
+	\mathcal{L} = \frac{ 1 }{ 2 } \sum_{i=1}^{N} m_i \dot{ \bm{s} }_i \tran
+	g \dot{ \bm{s} }_i - \sum_{i=1}^{N} \sum_{i<j} \phi (r_{ij}) +
+	\frac{ 1 }{ 2 } W \Tr (\dot{h} f_0 \dot{h}\tran) - P \Omega,
+\end{equation}
+with $f_0 = \sigma_0 \tran \sigma_0$, where $\sigma_0 = \{
+\bm{a}_0 \times \bm{b}_0, \bm{b}_0 \times \bm{c}_0,
+\bm{c}_0 \times \bm{a}_0 \}$.
