@@ -9,7 +9,7 @@ ensembles other than micro-canonical ensemble.\cite{Andersen:1980ew}
 In his ground-breaking paper, he proposed ways to calculate properties average
 over isoenthalpic-isobaric (NPH) ensemble. In the article, he introduced
 a Lagrangian
-\begin{equation}\label{eq:lagrang}
+\begin{equation}\label{eq:andersenlagrang}
 	\mathcal{L}(\bm{\rho}, \dot{\bm{\rho}}, Q, \dot{ Q }) = \frac{ 1 }{ 2 } m
 	Q^{\frac{ 2 }{ 3 }}
 	\sum_{i=1}^{N} \dot{ \bm{\rho} }_i \cdot \dot{ \bm{\rho} }_i - \sum_{i<j=1}^{N}
@@ -98,7 +98,7 @@ Since the time average $\overline{F}$ of any function $F$
 derived by this trajectory is the same as an
 isoentahlpic-isobaric ensemble average of $F_{NPH}$, and
 $\overline{G} = \overline{F}$, thus we get the NPH ensemble average.
-The ensemble pressure $P$ is $\alpha$ in $\eqref{eq:lagrang}$ indeed.
+The ensemble pressure $P$ is $\alpha$ in $\eqref{eq:andersenlagrang}$ indeed.
 
 
 \subsection{Rahman and Parrinello's approach}
@@ -117,7 +117,7 @@ introduced a Lagrangian
 \begin{equation}
 	\mathcal{L} = \frac{ 1 }{ 2 } \sum_{i=1}^{N} m_i \dot{ \bm{s} }_i \tran
 	g \dot{ \bm{s} }_i - \sum_{i=1}^{N} \sum_{i<j} \phi (r_{ij}) +
-	\frac{ 1 }{ 2 } W \Tr (\dot{h} \tran \dot{h}) - P \Omega,
+	\frac{ 1 }{ 2 } W \Tr \big(\dot{h} \tran \dot{h} \big) - P \Omega,
 \end{equation}
 where $r_{ij}^2 = (\bm{s}_i - \bm{s}_j)\tran g (\bm{s}_i - \bm{s}_j)$,
 $P$ is the external hydrostatic pressure, $\phi(r_{ij})$ is the pair
@@ -130,12 +130,13 @@ Then the equations of motion are
 	\dot{ \bm{s} }_i, \quad i, j = 1, 2, \ldots, N,\\
 	\ddot{h}   & = \frac{ 1 }{ W } (\Pi - P) \sigma, \label{eq:hdd}
 \end{align}
-where $\sigma = \{\bm{b}\times \bm{c}, \bm{c}\times \bm{a},
-\bm{a}\times \bm{b}\}$, matrix $\Pi$ is given by
+where $\sigma = \{\bm{a}\times \bm{b},
+\bm{b}\times \bm{c}, \bm{c}\times \bm{a}\}$,
+matrix $\Pi$ is given by
 \begin{equation}
-	\Omega \Pi = \sum_{i=1}^{N} m_i \bm{v}_i \otimes \bm{v}_i
+	\Omega \Pi = \sum_{i=1}^{N} m_i \bm{v}_i \bm{v}_i\tran
 	+ \sum_{i=1}^{N} \sum_{i<j} \frac{ \phi'(r_{ij}) }{ r_{ij} }
-	(\bm{r}_i - \bm{r}_j)\otimes (\bm{r}_i - \bm{r}_j),
+	(\bm{r}_i - \bm{r}_j) (\bm{r}_i - \bm{r}_j)\tran,
 \end{equation}
 with $\bm{v}_i = h \bm{s}_i$.
 Then Andersen's case is a special one of $\eqref{eq:rplag}$,
@@ -167,18 +168,42 @@ $\bm{r}_i = (1+\epsilon) \bm{q}_i$, thus $d = (1 + \epsilon)\tran
 (1+\epsilon)$.
 The equations of motion are
 \begin{align}
-	\ddot{\epsilon} & = \frac{ \Omega }{ W } (\Pi - P)
-	\big((1+\epsilon)\tran\big)^{-1},\\
 	\ddot{q}_i      & = - \frac{ 1 }{ m_i } \sum_{\substack{i, j=1 \\j\neq i}}^{N}
 	\frac{ \phi'(r_{ij}) }{ r_{ij} }(\bm{q}_i - \bm{q}_j) - d^{-1} \dot{ d }
-	\dot{ \bm{q} }_i.
+	\dot{ \bm{q} }_i,\\
+	\ddot{\epsilon} & = \frac{ \Omega }{ W } (\Pi - P)
+	\big((1+\epsilon)\tran\big)^{-1}.\label{eq:edd}
 \end{align}
 An equivalent form of $\eqref{eq:wenzlag}$ is
 \begin{equation}
 	\mathcal{L} = \frac{ 1 }{ 2 } \sum_{i=1}^{N} m_i \dot{ \bm{s} }_i \tran
 	g \dot{ \bm{s} }_i - \sum_{i=1}^{N} \sum_{i<j} \phi (r_{ij}) +
-	\frac{ 1 }{ 2 } W \Tr (\dot{h} f_0 \dot{h}\tran) - P \Omega,
+	\frac{ 1 }{ 2 } W \Tr \big(\dot{h} f_0 \dot{h}\tran \big) - P \Omega,
 \end{equation}
 with $f_0 = \sigma_0 \tran \sigma_0$, where $\sigma_0 = \{
 \bm{a}_0 \times \bm{b}_0, \bm{b}_0 \times \bm{c}_0,
-\bm{c}_0 \times \bm{a}_0 \}$.
+\bm{c}_0 \times \bm{a}_0 \}$. These vectors form the matrix $h_0$,
+and the $h$ in $\eqref{eq:rplag}$ is now $h = (1+\epsilon) h_0$.
+This will lead to $\eqref{eq:edd}$ to be restated by using $\ddot{h}$
+as
+\begin{equation}\label{eq:wenzhdd}
+	\ddot{h} = \frac{ 1 }{ W } (\Pi - P) \sigma f_0^{-1},
+\end{equation}
+which makes it easier to implement in code.
+
+If further modify the fictitious kinetic energy term $K_L$ to be
+$ \frac{ 1 }{ 2 } W \Tr \big( \dot{ h } \sigma\tran \sigma \dot{ h }\tran \big)$,
+then $\eqref{eq:wenzhdd}$ will become
+\begin{equation}\label{eq:wenzlag2}
+	\ddot{h} = \frac{ 1 }{ W } (\Pi - P) \sigma f^{-1} + \frac{ 1 }{ 2 }
+	\Tr \bigg( e \frac{ \partial f }{ \partial h } \bigg) f^{-1}
+	- \dot{h} \dot{ f } f^{-1},
+\end{equation}
+with $f = \sigma \tran \sigma$, $e = \dot{ h }\tran \dot{ h }$. This
+Lagrangian coincide with $\eqref{eq:andersenlagrang}$ in
+isoshape limit.
+
+She then performed MD simulations using $\eqref{eq:rplag}$ and
+$\eqref{eq:wenzlag}$, as well as $\eqref{eq:wenzlag2}$ under zero
+temperature to compare. Her method eliminated the symmetry breaking
+introduced by R and P's non-invariant fictitious part of the dynamics.
