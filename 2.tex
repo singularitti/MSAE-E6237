@@ -124,12 +124,15 @@ $P$ is the external hydrostatic pressure, $\phi(r_{ij})$ is the pair
 potential, $W$ is the fictitious mass.
 
 Then the equations of motion are
-\begin{align}\label{eq:rplag}
+\begin{subequations}
+\label{eq:rplag}
+\begin{align}
 	\ddot{s}_i & = \frac{ 1 }{ m_i } \sum_{j\neq i}
 	\frac{ \phi'(r_{ij}) }{ r_{ij} } (\bm{s}_i - \bm{s}_j) - g^{-1}\dot{g}
-	\dot{ \bm{s} }_i, \quad i, j = 1, 2, \ldots, N,\\
+	\dot{ \bm{s} }_i, \quad i, j = 1, 2, \ldots, N,\label{eq:rpsdd}\\
 	\ddot{h}   & = \frac{ 1 }{ W } (\Pi - P) \sigma, \label{eq:hdd}
 \end{align}
+\end{subequations}
 where $\sigma = \{\bm{a}\times \bm{b},
 \bm{b}\times \bm{c}, \bm{c}\times \bm{a}\}$,
 matrix $\Pi$ is given by
@@ -194,7 +197,7 @@ which makes it easier to implement in code.
 If further modify the fictitious kinetic energy term $K_L$ to be
 $ \frac{ 1 }{ 2 } W \Tr \big( \dot{ h } \sigma\tran \sigma \dot{ h }\tran \big)$,
 then $\eqref{eq:wenzhdd}$ will become
-\begin{equation}\label{eq:wenzlag2}
+\begin{equation}\label{eq:wenzhdd2}
 	\ddot{h} = \frac{ 1 }{ W } (\Pi - P) \sigma f^{-1} + \frac{ 1 }{ 2 }
 	\Tr \bigg( e \frac{ \partial f }{ \partial h } \bigg) f^{-1}
 	- \dot{h} \dot{ f } f^{-1},
@@ -204,6 +207,6 @@ Lagrangian coincide with $\eqref{eq:andersenlagrang}$ in
 isoshape limit.
 
 She then performed MD simulations using $\eqref{eq:rplag}$ and
-$\eqref{eq:wenzlag}$, as well as $\eqref{eq:wenzlag2}$ under zero
+$\eqref{eq:wenzlag}$, as well as the modified Lagrangian under zero
 temperature to compare. Her method eliminated the symmetry breaking
 introduced by R and P's non-invariant fictitious part of the dynamics.

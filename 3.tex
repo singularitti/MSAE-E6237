@@ -5,3 +5,55 @@
 The following part is an introduction on how to use
 Wentzcovitch's code to perform MD simulation. The code is
 based on one of her papers.\cite{Wentzcovitch:1991ka}
+
+The simulation is done under zero temperature, as stated above.
+
+
+
+
+\subsection{\texttt{UPDG} subroutine}
+This part is used to update several quantities of cell during calculations.
+
+Here \texttt{avec} is $h$, \texttt{avecd} is $\dot{ h }$, thus $g = h\tran h$ 
+and $\dot{g}  = \dot{ h }\tran h + h \dot{ h }\tran$, \texttt{gm1} is $g^{-1}$
+and \texttt{gmgd} is $g^{-1} \dot{g}$. \texttt{sigma} is the reciprocal lattice
+vectors $\sigma$.
+
+It first reads a flag \texttt{itg} to see if $\sigma$ and $V$ need to be calculated,
+if it is `yes', then do the following things:
+Firstly calculates $\sigma$ by the components of $h$, and then calculate the 
+MD cell volume by
+\begin{equation}
+  V = \sigma \cdot h,
+\end{equation}
+and then calculate $g$, $\dot{ g }$, $g^{-1}$, $g^{-1}\dot{g}$, respectively.
+
+\subsection{\texttt{SIGP} and \texttt{SIGS} subroutine}
+
+\texttt{SIGP} subroutine is used to calculate lattice vectors accelerations 
+based on `new dynamics', i.e., according to $\eqref{eq:rpsdd}$ and
+$\eqref{eq:wenzhdd}$; while \texttt{SIGS} is based on `strain dynamics',
+i.e., $\eqref{eq:rpsdd}$ and $\eqref{eq:wenzhdd2}$.
+
+Firstly calculates $f^{-1}$, by definition we know it is
+\begin{equation}
+  f^{-1} = \frac{ h \tran h }{ V },
+\end{equation}
+and $e = \dot{ h }\tran \dot{ h }$, as stated above, as well as
+a $3\times 3 \times 3 \times 3$ tensor
+\begin{equation}
+  f ' = \frac{ \partial f }{ \partial h_{ij} } = (\sigma'_{ij})\tran \sigma
+  + \sigma \tran \sigma'_{ij},
+\end{equation}
+where $\sigma'$ is denoted as \texttt{sigmap} in code, another $3\times 3
+\times 3 \times 3$ tensor.
+$\dot{f}_0 = \dot{ \sigma } \tran \sigma + \sigma \tran \dot{ \sigma }$ is 
+also calculated.
+$f^{-1} = \sum_{k, l} e_{lk} f'_{ijkl}$, and $\sigma^{-1} = h \dot{ f }$.
+Then final returns $\ddot{h}$.
+
+
+
+
+
+\subsection{\texttt{RDPP} subroutine}
