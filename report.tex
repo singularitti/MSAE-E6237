@@ -1,0 +1,63 @@
+% !TEX program = xelatex
+% !TEX encoding = UTF-8
+% !BIB program = bibtex
+% !TEX spellcheck = en_US
+\documentclass[12pt]{article}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\graphicspath{{images/}}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{newpxtext,newpxmath}
+\usepackage{siunitx}
+\usepackage{hyperref}
+\usepackage{bm}
+\usepackage{braket}
+\usepackage[version=4]{mhchem}
+\usepackage[yyyymmdd,hhmmss]{datetime}  % Insert "Compiled on ..."
+\usepackage[symbol]{footmisc}  % footnote symbol
+
+\sisetup{inter-unit-product = \ensuremath{{}\cdot{}}}
+\DeclareTextCommand{\nobreakspace}{T1}{\leavevmode\nobreak\ }
+
+\title{Molecular}		% Title
+\author{Qi Zhang (UNI: \texttt{qz2280})}								% Author
+\date{}											% Date
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\lfoot{Last compiled on {\ddmmyyyydate\today} at \currenttime}
+\rfoot{\thepage}
+
+
+\newcommand*{\rmn}[1]{\romannumeral#1}
+\newcommand*{\RMN}[1]{\uppercase\expandafter{\romannumeral#1}}
+\newcommand*{\tran}{^{\mkern-1.5mu\mathsf{T}}}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\begin{document}
+\bibliographystyle{unsrt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{cover}
+\tableofcontents
+\newpage
+\include{1}
+\include{2}
+
+
+\bibliography{thebib}
+\nocite{dufty1986molecular}
+\end{document}
