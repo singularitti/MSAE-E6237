@@ -2,6 +2,8 @@
 
 \section{Molecular dynamics code}
 
+\subsection{MD code}
+
 The following part is an introduction on how to use
 Wentzcovitch's code to perform MD simulation. The code is
 based on one of her papers.\cite{Wentzcovitch:1991ka}
@@ -9,51 +11,80 @@ based on one of her papers.\cite{Wentzcovitch:1991ka}
 The simulation is done under zero temperature, as stated above.
 
 
+\subsubsection{\texttt{RDPP} subroutine}
+
+Usually in the same directory of the executable there should be
+a file containing pair-potential of a certain element. In the file there
+are $n (n+1)$ columns, the first column is the
+This subroutine reads the pair-potential file
 
 
-\subsection{\texttt{UPDG} subroutine}
+\subsubsection{\texttt{RANV} subroutine}
+
+Generate initial velocity by Maxwell distribution at temperature $T$.
+
+
+\subsubsection{\texttt{UPDG} subroutine}
+
 This part is used to update several quantities of cell during calculations.
 
-Here \texttt{avec} is $h$, \texttt{avecd} is $\dot{ h }$, thus $g = h\tran h$ 
+Here \texttt{avec} is $h$, \texttt{avecd} is $\dot{ h }$, thus $g = h\tran h$
 and $\dot{g}  = \dot{ h }\tran h + h \dot{ h }\tran$, \texttt{gm1} is $g^{-1}$
 and \texttt{gmgd} is $g^{-1} \dot{g}$. \texttt{sigma} is the reciprocal lattice
 vectors $\sigma$.
 
 It first reads a flag \texttt{itg} to see if $\sigma$ and $V$ need to be calculated,
 if it is `yes', then do the following things:
-Firstly calculates $\sigma$ by the components of $h$, and then calculate the 
+Firstly calculates $\sigma$ by the components of $h$, and then calculate the
 MD cell volume by
 \begin{equation}
-  V = \sigma \cdot h,
+	V = \sigma \cdot h,
 \end{equation}
 and then calculate $g$, $\dot{ g }$, $g^{-1}$, $g^{-1}\dot{g}$, respectively.
 
-\subsection{\texttt{SIGP} and \texttt{SIGS} subroutine}
 
-\texttt{SIGP} subroutine is used to calculate lattice vectors accelerations 
+\subsubsection{\texttt{SIGS} and \texttt{SIGP} subroutine}
+
+\texttt{SIGS} subroutine is used to calculate lattice vectors accelerations
 based on `new dynamics', i.e., according to $\eqref{eq:rpsdd}$ and
-$\eqref{eq:wenzhdd}$; while \texttt{SIGS} is based on `strain dynamics',
-i.e., $\eqref{eq:rpsdd}$ and $\eqref{eq:wenzhdd2}$.
+$\eqref{eq:wenzhdd}$; while \texttt{SIGP} is based on `strain dynamics',
+i.e., $\eqref{eq:rpsdd}$ and $\eqref{eq:wenzhdd2}$. These $2$ routines
+are called in \texttt{move} if \texttt{calc} is \texttt{sd} and \texttt{nd}, respectively.
 
-Firstly calculates $f^{-1}$, by definition we know it is
+In \texttt{SIGS} subroutine,
+firstly calculates $f_0^{-1}$, by definition it is
 \begin{equation}
-  f^{-1} = \frac{ h \tran h }{ V },
+  f_0^{-1} = \frac{ h_0 \tran h_0}{ V_0^2 },
+\end{equation}
+then set an argument \texttt{avint} to temporally store $\ddot{h}$,
+and perform calculation $\ddot{h} = \ddot{h} f_0^{-1}$. Why?
+
+
+In \texttt{SIGP} subroutine,
+firstly calculates $f^{-1}$, by definition we know it is
+\begin{equation}
+	f^{-1} = \frac{ h \tran h }{ V^2 },
 \end{equation}
 and $e = \dot{ h }\tran \dot{ h }$, as stated above, as well as
 a $3\times 3 \times 3 \times 3$ tensor
 \begin{equation}
-  f ' = \frac{ \partial f }{ \partial h_{ij} } = (\sigma'_{ij})\tran \sigma
-  + \sigma \tran \sigma'_{ij},
+	f ' = \frac{ \partial f }{ \partial h_{ij} } = (\sigma'_{ij})\tran \sigma
+	+ \sigma \tran \sigma'_{ij},
 \end{equation}
 where $\sigma'$ is denoted as \texttt{sigmap} in code, another $3\times 3
 \times 3 \times 3$ tensor.
-$\dot{f}_0 = \dot{ \sigma } \tran \sigma + \sigma \tran \dot{ \sigma }$ is 
+$\dot{f}_0 = \dot{ \sigma } \tran \sigma + \sigma \tran \dot{ \sigma }$ is
 also calculated.
 $f^{-1} = \sum_{k, l} e_{lk} f'_{ijkl}$, and $\sigma^{-1} = h \dot{ f }$.
-Then final returns $\ddot{h}$.
+Then final returns $\ddot{h}$. As stated above, $h = (1 + \epsilon) h_0$,
+where $h_0 = \{ \bm{a}_0, \bm{b}_0, \bm{c}_0 \}$.
 
 
+\subsection{Input file}
 
+Now let's have a look at the input file.
 
-
-\subsection{\texttt{RDPP} subroutine}
+The second line is its calculation type, denoted by
+\texttt{calc}. \texttt{cmass} is the fictitious mass $W$ talked
+in R & P's and Wentzcovitch's scheme, and \texttt{press} is the
+external pressure $P$.
