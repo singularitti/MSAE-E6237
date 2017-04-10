@@ -11,6 +11,9 @@ based on one of her papers.\cite{Wentzcovitch:1991ka}
 The simulation is done under zero temperature, as stated above.
 
 
+\subsection{\texttt{INIT} subroutine}
+
+
 \subsubsection{\texttt{RDPP} subroutine}
 
 Usually in the same directory of the executable there should be
@@ -46,21 +49,21 @@ and then calculate $g$, $\dot{ g }$, $g^{-1}$, $g^{-1}\dot{g}$, respectively.
 \subsubsection{\texttt{SIGS} and \texttt{SIGP} subroutine}
 
 \texttt{SIGS} subroutine is used to calculate lattice vectors accelerations
-based on `new dynamics', i.e., according to $\eqref{eq:rpsdd}$ and
-$\eqref{eq:wenzhdd}$; while \texttt{SIGP} is based on `strain dynamics',
+based on `strain dynamics', i.e., according to $\eqref{eq:rpsdd}$ and
+$\eqref{eq:wenzhdd}$; while \texttt{SIGP} is based on `new dynamics',
 i.e., $\eqref{eq:rpsdd}$ and $\eqref{eq:wenzhdd2}$. These $2$ routines
 are called in \texttt{move} if \texttt{calc} is \texttt{sd} and \texttt{nd}, respectively.
 
-In \texttt{SIGS} subroutine,
+In \texttt{SIGP} subroutine,
 firstly calculates $f_0^{-1}$, by definition it is
 \begin{equation}
-  f_0^{-1} = \frac{ h_0 \tran h_0}{ V_0^2 },
+	f_0^{-1} = \frac{ h_0 \tran h_0}{ V_0^2 },
 \end{equation}
 then set an argument \texttt{avint} to temporally store $\ddot{h}$,
 and perform calculation $\ddot{h} = \ddot{h} f_0^{-1}$. Why?
 
 
-In \texttt{SIGP} subroutine,
+In \texttt{SIGS} subroutine,
 firstly calculates $f^{-1}$, by definition we know it is
 \begin{equation}
 	f^{-1} = \frac{ h \tran h }{ V^2 },
@@ -86,7 +89,7 @@ Now let's have a look at the input file.
 
 The second line is its calculation type, denoted by
 \texttt{calc}. \texttt{cmass} is the fictitious mass $W$ talked
-in R & P's and Wentzcovitch's scheme, and \texttt{press} is the
+in R and P's and Wentzcovitch's scheme, and \texttt{press} is the
 external pressure $P$.
 
 
@@ -95,5 +98,5 @@ external pressure $P$.
 \begin{enumerate}
 	\item Why is `nd' and `sd' reversed?
 	\item Is the pair-potential of \ce{Ar}? Where can I find this
-	data?
+	      data?
 \end{enumerate}
