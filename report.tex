@@ -20,6 +20,9 @@
 \usepackage[version=4]{mhchem}
 \usepackage[yyyymmdd,hhmmss]{datetime}  % Insert "Compiled on ..."
 \usepackage[symbol]{footmisc}  % footnote symbol
+\usepackage[superscript]{cite}  % The option superscript to the cite package affects the citations in the text
+\usepackage{url}
+\usepackage[margin=1cm]{caption}  % Limit the figure caption width
 
 \sisetup{inter-unit-product = \ensuremath{{}\cdot{}}}
 \DeclareTextCommand{\nobreakspace}{T1}{\leavevmode\nobreak\ }
@@ -56,9 +59,11 @@
 \include{cover}
 \tableofcontents
 \newpage
-\include{1}
-\include{2}
-\include{3}
+\include{algorithms}
+\include{invariant-md}
+\include{abinitio-md}
+\include{code-intro}
+\include{input-intro}
 
 \bibliography{thebib}
 \nocite{dufty1986molecular}
