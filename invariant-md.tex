@@ -105,7 +105,7 @@ $\overline{G} = \overline{F}$, thus we get the NPH ensemble average.
 The ensemble pressure $P$ is $\alpha$ in $\eqref{eq:andersenlagrang}$ indeed.
 
 
-\subsection{Rahman and Parrinello's approach}
+\subsection{Rahman--Parrinello approach}
 
 Rahman and Parrinello then proposed a method to perform
 MD simulations which allows volume and shape of the MD cell
@@ -115,10 +115,10 @@ and $\bm{c}$, which are time dependent. Stack them to form a
 matrix $h = \{ \bm{a}, \bm{b}, \bm{c} \}$, and the volume of a cell
 is then $\Omega = \bm{a} \cdot \bm{b} \times \bm{c}$, the metric
 tensor is $g = h\tran h$. Let $\bm{r}_i = \xi_i \bm{a} + \eta_i \bm{b}
-+ \zeta_i \bm{c} = h \bm{s}_i$, where $\bm{s}_i$ store its coordinates
+	+ \zeta_i \bm{c} = h \bm{s}_i$, where $\bm{s}_i$ store its coordinates
 $\xi_i$, $\eta_i$, and $\zeta_i$, each from $0$ to $1$. Then they
 introduced a Lagrangian
-\begin{equation}
+\begin{equation}\label{eq:rplag}
 	\mathcal{L} = \frac{ 1 }{ 2 } \sum_{i=1}^{N} m_i \dot{ \bm{s} }_i \tran
 	g \dot{ \bm{s} }_i - \sum_{i=1}^{N} \sum_{i<j} \phi (r_{ij}) +
 	\frac{ 1 }{ 2 } W \Tr \big(\dot{h} \tran \dot{h} \big) - P \Omega,
@@ -129,7 +129,7 @@ potential, $W$ is the fictitious mass.
 
 Then the equations of motion are
 \begin{subequations}
-	\label{eq:rplag}
+  \label{eq:rpeqm}
 	\begin{align}
 		\ddot{s}_i & = \frac{ 1 }{ m_i } \sum_{j\neq i}
 		\frac{ \phi'(r_{ij}) }{ r_{ij} } (\bm{s}_i - \bm{s}_j) - g^{-1}\dot{g}
@@ -138,7 +138,7 @@ Then the equations of motion are
 	\end{align}
 \end{subequations}
 where $\sigma = \{\bm{a}\times \bm{b},
-\bm{b}\times \bm{c}, \bm{c}\times \bm{a}\}$,
+	\bm{b}\times \bm{c}, \bm{c}\times \bm{a}\}$,
 matrix $\Pi$ is given by
 \begin{equation}
 	\Omega \Pi = \sum_{i=1}^{N} m_i \bm{v}_i \bm{v}_i\tran
@@ -146,10 +146,11 @@ matrix $\Pi$ is given by
 	(\bm{r}_i - \bm{r}_j) (\bm{r}_i - \bm{r}_j)\tran,
 \end{equation}
 with $\bm{v}_i = h \bm{s}_i$.
-Then Andersen's case is a special one of $\eqref{eq:rplag}$,
+Then Andersen's equations of motion is a special case of 
+$\eqref{eq:rpeqm}$,
 where $h = \diag (\Omega^{\frac{ 1 }{ 3 }}, \ldots,
-\Omega^{\frac{ 1 }{ 3 }})$ and $g^{-1} \dot{g} =
-\frac{ 2 \dot{\Omega} }{3 \Omega }$. Though his equation for
+	\Omega^{\frac{ 1 }{ 3 }})$ and $g^{-1} \dot{g} =
+	\frac{ 2 \dot{\Omega} }{3 \Omega }$. Though his equation for
 $\ddot{V}$ cannot be obtained from $\eqref{eq:hdd}$. But
 this Lagrangian also results in a isoenthalpic, isobaric ensemble,
 though with a small correction from the third term.
@@ -157,7 +158,7 @@ though with a small correction from the third term.
 
 \subsection{Wentzcovitch's approach}
 
-Wentzcovitch stated that R and P's method is dependent on
+Wentzcovitch stated that Rahman--Parrinello method is dependent on
 the choice of cell edges.\cite{Wentzcovitch:1991ka}
 For different $\bm{a}$, $\bm{b}$, and
 $\bm{c}$, the fictitious kinetic energy $K_L$ term could be different.
@@ -173,7 +174,7 @@ Lagrangian
 \end{equation}
 where $\epsilon$ is the strain, $\bm{q}_i$ is the defined as
 $\bm{r}_i = (1+\epsilon) \bm{q}_i$, thus $d = (1 + \epsilon)\tran
-(1+\epsilon)$.
+	(1+\epsilon)$.
 The equations of motion are
 \begin{align}
 	\ddot{q}_i      & = - \frac{ 1 }{ m_i } \sum_{\substack{i, j=1 \\j\neq i}}^{N}
@@ -189,9 +190,9 @@ An equivalent form of $\eqref{eq:wenzlag}$ is
 	\frac{ 1 }{ 2 } W \Tr \big(\dot{h} f_0 \dot{h}\tran \big) - P \Omega,
 \end{equation}
 with $f_0 = \sigma_0 \tran \sigma_0$, where $\sigma_0 = \{
-\bm{a}_0 \times \bm{b}_0, \bm{b}_0 \times \bm{c}_0,
-\bm{c}_0 \times \bm{a}_0 \}$. These vectors form the matrix $h_0$,
-and the $h$ in $\eqref{eq:rplag}$ is now $h = (1+\epsilon) h_0$.
+	\bm{a}_0 \times \bm{b}_0, \bm{b}_0 \times \bm{c}_0,
+	\bm{c}_0 \times \bm{a}_0 \}$. These vectors form the matrix $h_0$,
+and the $h$ in $\eqref{eq:rplag}$ is $h = (1+\epsilon) h_0$.
 This will lead to $\eqref{eq:edd}$ to be restated by using $\ddot{h}$
 as
 \begin{equation}\label{eq:wenzhdd}
@@ -214,4 +215,4 @@ isoshape limit.
 She then performed MD simulations using $\eqref{eq:rplag}$ and
 $\eqref{eq:wenzlag}$, as well as the modified Lagrangian under zero
 temperature to compare. Her method eliminated the symmetry breaking
-introduced by R and P's non-invariant fictitious part of the dynamics.
+introduced by Rahman--Parrinello non-invariant fictitious part of the dynamics.

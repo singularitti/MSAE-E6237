@@ -1,50 +1,8 @@
 % !TEX root = report.tex
 
-\section{Molecular dynamics code}
-
-The following part is an introduction on how to use
-Wentzcovitch's code to perform MD simulation. The code is
-based on one of her papers.\cite{Wentzcovitch:1991ka}
-
-The simulation is done under zero temperature, as stated above.
-
-\texttt{mxdtyp} denotes the array dimension for type of atoms,
-in the input file there will be a line labeled by \texttt{(ntype)}, it
-contains a scalar, i.e., number of atom types, so \texttt{mxdtyp} $=1$.
-
-\subsection{Setup steps}
-\subsubsection{\texttt{INIT} subroutine}
-
-\texttt{ilj} is the only variable set by hand in code, if it is equal to $1$,
-the code will call \texttt{FORCLJ} subroutine, else it will call \texttt{FORC}
-subroutine, see below for the differences between these $2$ 
-subroutines.
-
-\subsubsection{\texttt{RDPP} subroutine}
-
-%Usually in the same directory of the executable there should be
-%a file containing pair-potential of a certain element. In the file there
-%are $n (n+1)$ columns.
-This subroutine reads the pair-potential file.
-Here \texttt{ntype} is the number of different types of atoms.
-It reads the potential of $i$th atom and $j$th atom, where $j \geq i$.
-So in the code we need to do some assignments like
-\begin{align}
-	U_{ij}      & = U_{ji},      \\
-	\bm{F}_{ij} & = \bm{F}_{ji},
-\end{align}
-where $U_{ji}$ and $\bm{F}_{ji}$ are what we read from file,
-thus we can save time on IO operations.
-
-
-\subsubsection{\texttt{RANV} subroutine}
-
-This subroutine is dedicated for setting up Maxwell distributed random velocities
-at temperature $T$. 
-
-
 \subsection{Force calculation}
 \subsubsection{\texttt{FORCLJ} subroutine}
+\label{sssec:forclj}
 
 The subroutine will first calculate the Cartesian distance between 2 atoms.
 It will call \texttt{ELJ} subroutine for each pair of atoms $i$ and $j$, in which
@@ -94,6 +52,7 @@ subroutine to the \texttt{f} and \texttt{fs}, respectively.
 
 
 \subsubsection{\texttt{FORC} subroutine}
+\label{sssec:forc}
 
 If \texttt{FORCLJ} is used for analytical computation, then this subroutine is
 used as numerical methods.
@@ -124,12 +83,13 @@ and then calculate $g$, $\dot{ g }$, $g^{-1}$, $g^{-1}\dot{g}$, respectively.
 
 
 \subsubsection{\texttt{SIGS} and \texttt{SIGP} subroutine}
+\label{sssec:sigs&p}
 
-\texttt{SIGS} subroutine is used to calculate lattice vectors accelerations
-based on `new dynamics', i.e., according to $\eqref{eq:rpsdd}$ and
-$\eqref{eq:wenzhdd}$; while \texttt{SIGP} is based on `strain dynamics',
-i.e., $\eqref{eq:rpsdd}$ and $\eqref{eq:wenzhdd2}$. These $2$ routines
-are called in \texttt{move} if \texttt{calc} is \texttt{sd} and \texttt{nd}, respectively.
+\texttt{SIGP} subroutine is used to calculate lattice vectors accelerations
+based on `new cell dynamics', i.e., according to $\eqref{eq:rpsdd}$ and
+$\eqref{eq:wenzhdd2}$; while \texttt{SIGS} is based on `strain dynamics',
+i.e., $\eqref{eq:rpsdd}$ and $\eqref{eq:wenzhdd}$.
+At last, the result returned is $\ddot{h}$.
 
 In \texttt{SIGS} subroutine,
 firstly calculates $f_0^{-1}$, by definition it is
@@ -138,6 +98,7 @@ firstly calculates $f_0^{-1}$, by definition it is
 \end{equation}
 then set an argument \texttt{avint} to temporally store $\ddot{h}$,
 and perform calculation $\ddot{h} = \ddot{h} f_0^{-1}$.
+This subroutine also returns $\ddot{h}$ in the end.
 
 In \texttt{SIGP} subroutine,
 firstly calculates $f^{-1}$, by definition we know it is

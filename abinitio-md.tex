@@ -1,3 +1,122 @@
 % !TEX root = report.tex
 
 \section{First principles molecular dynamics}
+
+The first quantum molecular dynamics (QMD),
+a.k.a., ``\textit{ab initio}'' or ``first principles'' simulation was
+carried out by Car and Parrinello in 1985.\cite{Car:1985ix}
+Their and subsequent work
+have led to a great development on treating real, complex molecules,
+solids and liquids with forces derived by density functional theory
+(DFT).\cite{martin2004electronic} Now we are going to have a look
+on this work.
+
+
+\subsection{Car--Parrinello approach}
+
+Car and Parrinello were dedicating to find the ground-state electronic
+solution for the electrons as the nuclei move. Their MD simulation was
+based on $2$ assumptions: the validity of classical mechanics to describe
+ionic motions, and Born--Oppenheimer approximation to separate the
+nuclear and electronic coordinates.
+They invented a new strategy other than the Metropolis Monte Carlo method
+introduced by Kirkpatrick, Gelatt, and Vecchi,\cite{Kirkpatrick:1983zz}
+the so-called ``dynamical simulated annealing'' method.
+By this method, they could minimize the energy of electrons and solve
+for the motion of the nuclei simultaneously. This is achieved by introducing
+a Lagrangian
+\begin{equation}\label{eq:cplag}
+	\mathcal{L} = \sum_{i} \frac{ 1 }{ 2 } \mu \int d\bm{r} \lvert
+	\dot{\psi}_i(\bm{r}) \rvert ^ 2 +
+	\sum_{I} \frac{ 1 }{ 2 } M_I \dot{ \bm{R} }_I ^ 2 +
+	\sum_{\nu} \frac{ 1 }{ 2 } \mu_{\nu}  \dot{ \alpha }_\nu ^ 2 -
+	E[\{ \psi_i \}, \{ \bm{R}_I \}, \{ \alpha_\nu \}],
+\end{equation}
+with the holonomic constraints
+\begin{equation}\label{eq:cpconst}
+	\int d\bm{r} \psi_i ^ \ast (\bm{r}, t) \psi_j (\bm{r}, t) = \delta_{ij},
+\end{equation}
+where $M_I$ are the physical ionic masses, while $\mu$ and $\mu_{\nu}$
+are just arbitrary parameters of appropriate units.
+In $\eqref{eq:cplag}$,
+the dynamics associated with the $\{ \psi_i \}$'s and
+the $\{ \alpha_\nu \}$'s is fictitious and should only be considered
+as a numerical tool.
+Combine
+$\eqref{eq:cplag}$ and $\eqref{eq:cpconst}$ we derive
+\begin{multline}
+	\mathcal{L}' =
+	\sum_{i} \frac{ 1 }{ 2 } \mu \int d\bm{r} \lvert
+	\dot{\psi}_i(\bm{r}) \rvert ^ 2 +
+	\sum_{I} \frac{ 1 }{ 2 } M_I \dot{ \bm{R} }_I ^ 2 +
+	\sum_{\nu} \frac{ 1 }{ 2 } \mu_{\nu}  \dot{ \alpha }_\nu ^ 2 -
+	E[\{ \psi_i \}, \{ \bm{R}_I \}, \{ \alpha_\nu \}]\\
+	+ \sum_{ij} \Lambda_{ij} \bigg[
+		\int d\bm{r} \psi_i ^ \ast (\bm{r}, t) \psi_j (\bm{r}, t) - \delta_{ij}
+		\bigg],
+\end{multline}
+where $E[\{ \psi_i \}, \{ \bm{R}_I \}, \{ \alpha_\nu \}]$ is a functional,
+$\Lambda_{ij}$ is a Lagrangian multiplier.
+Thus the corresponding equations of motion are
+\begin{align}
+	\mu \ddot{\psi}_i (\bm{r}, t) & =
+	\frac{ \partial \mathcal{L}' }{ \partial \psi_i^\ast (\bm{r}, t)} = -
+	\frac{ \delta E}{ \delta \psi_i^\ast (\bm{r}, t)} + \sum_{k}
+	\Lambda_{ik} \psi_k (\bm{r}, t) =
+	- \hat{H} \psi_i(\bm{r}, t) + \sum_{k}
+	\Lambda_{ik} \psi_k (\bm{r}, t)\\
+	M_I \ddot{\bm{R}}_I           & =
+	\frac{ \partial \mathcal{L}' }{ \partial \bm{R}_I } =
+	\bm{F}_{I} =
+	- \frac{ \partial E }{ \partial \bm{R}_I } \thinspace,\\
+	\mu_{\nu} \ddot{\alpha}_{\nu} & =
+	\frac{ \partial \mathcal{L}' }{ \partial \alpha_{\nu} } =
+	- \frac{ \partial E }{ \partial \alpha_{\nu} } \thinspace,
+\end{align}
+where $\hat{H}$ is the hamiltonian.
+These equations can be simulated by the Verlet algorithm, that is,
+\begin{subequations}
+	\label{eq:cpeqm}
+	\begin{align}
+		\psi_i ^{n+1} (\bm{r}) & = 2 \psi_{i} ^ {n} (\bm{r}) -
+		\psi_i ^{n-1} (\bm{r}) - \frac{ h^2 }{ \mu }
+		\bigg[
+			\hat{H} \psi_{i} ^ {n} (\bm{r}) - \sum_{k}
+			\Lambda_{ik} \psi_k (\bm{r}, t)
+			\bigg],\label{eq:cpst}\\
+		\bm{R}_{I}^{n+1}       & = 2 \bm{R}_{I}^{n} - \bm{R}_{I}^{n-1} +
+		\frac{ h^2 }{ M_I } \bm{F}_{I} \thinspace,\\
+		\alpha_{\nu}^{n+1}     & = 2 \alpha_{\nu}^{n} -
+		\alpha_{\nu}^{n-1} -
+		\frac{ h^2 }{ \mu_{\nu} }
+		\frac{ \partial E }{ \partial \alpha_{\nu} } \thinspace,
+	\end{align}
+\end{subequations}
+where $h$ is the time step interval. The holonomic constraints are
+handled by a method called SHAKE.\cite{Ryckaert:1977gp}
+
+At stationary state, all time derivatives are $0$ so that
+$\eqref{eq:cpst}$ leads to
+\begin{equation}
+	\hat{H} \psi_{i} ^ {n} (\bm{r}) = \sum_{k}
+	\Lambda_{ik} \psi_k (\bm{r}, t),
+\end{equation}
+which shows that $\Lambda$ is the transpose of
+usual Kohn--Sham hamiltonian matrix
+$H$, i.e., $\Lambda_{ij} = H_{ji}$. Thus the eigenvalues of
+$\Lambda$ coincides with Kohn--Sham eigenvalues.
+And the solution is stationary if and only if the Kohn--Sham
+energy is at a variational minimum.\cite{martin2004electronic}
+This method leads to the possibility to consider real dynamics
+of the nuclei in \textit{ab initio} electronic structure algorithms.
+
+
+\subsection{Wentzcovitch's approach}
+
+In Car--Parrinello method, as $\eqref{eq:cpeqm}$ has shown,
+at each timestep $\hat{H} \psi_i$ is calculated. However, this is
+the most time-consuming operation in the algorithm.
+
+
+
+

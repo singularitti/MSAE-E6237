@@ -1,0 +1,83 @@
+% !TEX root = report.tex
+
+\section{Molecular dynamics code}
+
+The following part is an introduction on how to use
+Wentzcovitch's code to perform MD simulation. The code is
+based on one of her papers.\cite{Wentzcovitch:1991ka}
+
+There are $4$ types of simulations in code,
+denoted as \texttt{md}, \texttt{cd}, \texttt{nd}, \texttt{sd},
+respectively. The first one means ``molecular dynamics'',
+based on Andersen's paper,\cite{Andersen:1980ew},
+the second one means ``cell dynamics'', based on
+Rahman–Parrinello approach,\cite{Parrinello:1980kx},
+the main equations are $\eqref{eq:rpeqm}$.
+The third case is called ``new cell dynamics'' and is based on
+$\eqref{eq:rpsdd}$ and $\eqref{eq:wenzhdd2}$,
+the last one is called ``strain dynamics'' and is based on
+$\eqref{eq:rpsdd}$ and $\eqref{eq:wenzhdd}$.
+
+The simulation is done under zero temperature, as stated above.
+
+\texttt{mxdtyp} denotes the array dimension for type of atoms,
+in the input file there will be a line labeled by \texttt{(ntype)}, it
+contains a scalar, i.e., number of atom types, so \texttt{mxdtyp} $=1$.
+
+\subsection{Setup steps}
+
+\subsubsection{\texttt{CRSTL} subroutine}
+
+This subroutine does some pre-setting work before \texttt{INIT}.
+The \texttt{avec} parameter is the $3$ lattice primitive vectors in Cartesian
+coordinates,
+i.e., $\{ \bm{a}, \bm{b}, \bm{c} \}$,
+denoted as $h$ in Wentzcovitch's paper.\cite{Wentzcovitch:1991ka}
+\texttt{rat} is the atomic positions in terms of lattice primitive vectors,
+\texttt{ratd} is its first-order time derivative.
+\texttt{g} is just $g = h \tran h$ and \texttt{gm1} is $g^{-1}$.
+\texttt{cmass} is the fictitious mass $W$ and
+\texttt{press} is the external pressure $P​$ in
+Wentzcovitch's paper.\cite{Wentzcovitch:1991ka}
+
+
+\subsubsection{\texttt{INIT} subroutine}
+
+First, call \texttt{RANV} subroutine, and initialize \texttt{avecd},
+\texttt{avec2d} and \texttt{gd}, etc.
+\texttt{ilj} is the only variable set by hand in code, if it is equal to $1$,
+the code will call \texttt{FORCLJ} subroutine, else it will call \texttt{FORC}
+subroutine, see \ref{sssec:forc} and \ref{sssec:forclj} for differences.
+
+Then if \texttt{calc} flag is not set to \texttt{md} and \texttt{mm}
+then \texttt{gmgd} is calculated.
+
+If \texttt{calc} flag is set to \texttt{nd} or \texttt{nm}
+then \texttt{SIGP} is called, if it is set to \texttt{sd} or
+\texttt{sm} then \texttt{SIGS} is called, see \ref{sssec:sigs&p}
+for more detail.
+Then we do strain symmetrization, $
+
+
+
+
+\subsubsection{\texttt{RDPP} subroutine}
+
+This subroutine reads the pair-potential file.
+Here \texttt{ntype} is the number of different types of atoms.
+It reads the potential of $i$th atom and $j$th atom, where $j \geq i$.
+So in the code we need to do some assignments like
+\begin{align}
+	U_{ij}      & = U_{ji},      \\
+	\bm{F}_{ij} & = \bm{F}_{ji},
+\end{align}
+where $U_{ji}$ and $\bm{F}_{ji}$ are what we read from file,
+thus we can save time on IO operations.
+
+
+\subsubsection{\texttt{RANV} subroutine}
+
+This subroutine is dedicated for setting up Maxwell distributed random velocities
+at temperature $T$.
+
+
