@@ -14,6 +14,7 @@
 \usepackage{enumerate}
 \usepackage[letterpaper, margin=1in]{geometry}
 \usepackage[T1]{fontenc}
+\usepackage{mathrsfs}
 \usepackage{newpxtext,newpxmath}
 \usepackage{siunitx}
 \usepackage{hyperref}
@@ -25,6 +26,7 @@
 \usepackage[superscript]{cite}  % The option superscript to the cite package affects the citations in the text
 \usepackage{url}
 \usepackage[margin=1cm]{caption}  % Limit the figure caption width
+\usepackage{xcolor}
 
 \sisetup{inter-unit-product = \ensuremath{{}\cdot{}}}
 \DeclareTextCommand{\nobreakspace}{T1}{\leavevmode\nobreak\ }
@@ -53,6 +55,11 @@
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \DeclareMathOperator{\Tr}{Tr}
 \DeclareMathOperator{\diag}{diag}
+\definecolor{ttcolor}{RGB}{47.0,152.0,19.0}
+% redefinition of \texttt
+\let\Oldtexttt\texttt
+\renewcommand\texttt[1]{{\ttfamily\color{ttcolor}#1}}
+
 
 \begin{document}
 \bibliographystyle{unsrt}

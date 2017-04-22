@@ -24,6 +24,43 @@ The simulation is done under zero temperature, as stated above.
 in the input file there will be a line labeled by \texttt{(ntype)}, it
 contains a scalar, i.e., number of atom types, so \texttt{mxdtyp} $=1$.
 
+\subsection{Main program}
+
+Then we start a MD loop.
+First update the current step \texttt{nzero}, and then update those
+accumulators \texttt{acu}, \texttt{ack} and \texttt{acp}, then calculate
+their averages by dividing \texttt{nzero}. Then call \texttt{move} subroutine,
+\texttt{p} is updated during this step, however \texttt{vcell} is not.
+Then calculate $p V$ and do a corresponding accumulator \texttt{acpv} and
+average \texttt{avpv}. And then, update arrays like \texttt{utm} with length
+\texttt{nstep} (read from input). 
+Then calculate the new temperature, \texttt{tnew}, by assuming equipartition 
+theorem $\bar{E} = \frac{ 3 }{ 2 } k_B T$, where $\bar{E}$ is
+the average kinetic energy \texttt{avk}.
+Then do rescaling on Cartesian velocity \texttt{v} and reduced velocity
+\texttt{ratd}.
+
+At the end of MD loop, write energy outputs to file \texttt{e}: total potential energy $U_t$ as 
+\texttt{utm} array, total kinetic energy $E_t$ as \texttt{ekintm} array,
+total energy $\mathscr{E}_t = E_t + U_t$ as \texttt{etotm} array, and
+total $p \Omega$ as \texttt{pvm}. And, write decomposed energy outputs
+to file \texttt{eal}: atomic contribution to total potential energy as 
+\texttt{utam} array, to total kinetic energy as \texttt{ekam} array,
+to total energy as \texttt{etam} array; and lattice contribution to
+total potential energy as \texttt{utlm} array, to total kinetic 
+energy as \texttt{eklm} array,
+to total energy as \texttt{etlm} array. It could be also understood as
+ionic and cell contributions, respectively. Then write average accumulated
+outputs to file \texttt{ave}, by \texttt{avkm}, \texttt{avum}, etc. Another
+important output file is \texttt{avec}, which stores lengths and angles 
+between primitive cell vectors for each MD step, 
+denoted by \texttt{bmodm} and
+\texttt{thetam} matrices. \texttt{bmodm} at each MD step
+is set to lattice vectors moduli \texttt{avmod}, computed by \texttt{MOVE}.
+\texttt{tv} file stores the ``instantaneous'' temperature and volume
+for each MD step.
+
+
 \subsection{Setup steps}
 
 \subsubsection{\texttt{CRSTL} subroutine}
@@ -56,9 +93,34 @@ If \texttt{calc} flag is set to \texttt{nd} or \texttt{nm}
 then \texttt{SIGP} is called, if it is set to \texttt{sd} or
 \texttt{sm} then \texttt{SIGS} is called, see \ref{sssec:sigs&p}
 for more detail.
-Then we do strain symmetrization, $
+With
+$\sigma_0 = 
+\{
+\bm{a}_0 \times \bm{b}_0, \bm{b}_0 \times \bm{c}_0,
+\bm{c}_0 \times \bm{a}_0 
+\}
+= \frac{ V_0 }{ 2\pi } \{
+\bm{c}^\ast_0, \bm{a}^\ast_0, \bm{b}^\ast_0
+\}$,
+we know
+$\ddot{d} = \frac{ 1 }{ V_0 }\ddot{h} \sigma_0$.
+Then we do strain symmetrization, $\ddot{d}_{ij} = \frac{ 1 }{ 2 }
+(\ddot{d}_{ij} + \ddot{d}_{ji})$.
+Then $\ddot{h} = \ddot{d} h_0$.
 
+If in \texttt{nd} or \texttt{nm}, we do 
+$\Tr (\dot{h}\tran \sigma \sigma \dot{h})$.
 
+If in \texttt{sd} or \texttt{sm}, we do 
+$\Tr(\dot{h}\tran \sigma_0 \sigma_0\tran \dot{ h })$.
+
+Then in both cases, we do
+\texttt{ekl} $=$ \texttt{ekl} + $\Tr (\dot{ h }\tran \dot{ h })$.
+
+Total kinetic energy is $E_{t} = $ \texttt{eka} + $\frac{ 1 }{ 2 } W ekl$,
+where $W$ is the fictitious mass,
+total potential energy $U_{t} = ???E_{t} + P \Omega$, where $P$ is the external pressure.
+Total energy is $\mathscr{E}_{t} = E_t + U_{t}$.
 
 
 \subsubsection{\texttt{RDPP} subroutine}
