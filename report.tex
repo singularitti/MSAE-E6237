@@ -3,36 +3,13 @@
 % !BIB program = bibtex
 % !TEX spellcheck = en_US
 % !TEX outputDirectory = build.noindex
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass[12pt]{article}
-\usepackage{url}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage{subfigure}
-\graphicspath{{images/}}
-\usepackage{fancyhdr}
-\usepackage{enumerate}
-\usepackage[letterpaper, margin=1in]{geometry}
-\usepackage[T1]{fontenc}
-\usepackage{mathrsfs}
-\usepackage{newpxtext,newpxmath}
-\usepackage{siunitx}
-\usepackage{hyperref}
-\usepackage{bm}
-\usepackage{braket}
-\usepackage[version=4]{mhchem}
-\usepackage[yyyymmdd,hhmmss]{datetime}  % Insert "Compiled on ..."
-\usepackage[symbol]{footmisc}  % footnote symbol
-\usepackage[superscript]{cite}  % The option superscript to the cite package affects the citations in the text
-\usepackage{url}
-\usepackage[margin=1cm]{caption}  % Limit the figure caption width
-\usepackage{xcolor}
-
-\sisetup{inter-unit-product = \ensuremath{{}\cdot{}}}
-\DeclareTextCommand{\nobreakspace}{T1}{\leavevmode\nobreak\ }
+\input{packages}
+\input{newcommands}
 
 \title{TBA}		% Title
-\author{Qi Zhang (UNI: \texttt{qz2280})}								% Author
+\author{Qi Zhang (UNI: \Oldtexttt{qz2280})}								% Author
 \date{}											% Date
 
 \makeatletter
@@ -41,29 +18,9 @@
 \let\thedate\@date
 \makeatother
 
-\pagestyle{fancy}
-\fancyhf{}
-\rhead{\theauthor}
-\lhead{\thetitle}
-\lfoot{Last compiled on {\ddmmyyyydate\today} at \currenttime}
-\rfoot{\thepage}
-
-
-\newcommand*{\rmn}[1]{\romannumeral#1}
-\newcommand*{\RMN}[1]{\uppercase\expandafter{\romannumeral#1}}
-\newcommand*{\tran}{^{\mkern-1.5mu\mathsf{T}}}
-\renewcommand{\thefootnote}{\fnsymbol{footnote}}
-\DeclareMathOperator{\Tr}{Tr}
-\DeclareMathOperator{\diag}{diag}
-\definecolor{ttcolor}{RGB}{47.0,152.0,19.0}
-% redefinition of \texttt
-\let\Oldtexttt\texttt
-\renewcommand\texttt[1]{{\ttfamily\color{ttcolor}#1}}
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 \bibliographystyle{unsrt}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \include{cover}
 \tableofcontents

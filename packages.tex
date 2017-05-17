@@ -1,0 +1,33 @@
+% !TEX root = report.tex
+
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{stix}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage[T1]{fontenc}
+\usepackage{mathrsfs}
+\usepackage{bm}
+\usepackage{braket}
+\usepackage[version=4]{mhchem}
+\usepackage[yyyymmdd,hhmmss]{datetime}  % Insert "Compiled on ..."
+\usepackage[symbol]{footmisc}  % footnote symbol
+\usepackage[superscript]{cite}  % The option superscript to the cite package affects the citations in the text
+\usepackage[margin=1cm]{caption}  % Limit the figure caption width
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{booktabs}
+
+\usepackage{siunitx}
+\sisetup{inter-unit-product = \ensuremath{{}\cdot{}}}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\lfoot{Last compiled on {\ddmmyyyydate\today} at \currenttime}
+\rfoot{\thepage}
