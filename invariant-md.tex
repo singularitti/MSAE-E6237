@@ -106,6 +106,7 @@ The ensemble pressure $P$ is $\alpha$ in $\eqref{eq:andersenlagrang}$ indeed.
 
 
 \subsection{Rahman--Parrinello approach}
+\label{ssec:rpa}
 
 Rahman and Parrinello then proposed a method to perform
 MD simulations which allows volume and shape of the MD cell
@@ -116,8 +117,8 @@ matrix $h = \{ \bm{a}, \bm{b}, \bm{c} \}$, and the volume of a cell
 is then $\Omega = \bm{a} \cdot \bm{b} \times \bm{c}$, the metric
 tensor is $g = h\tran h$. Let $\bm{r}_i = \xi_i \bm{a} + \eta_i \bm{b}
 	+ \zeta_i \bm{c} = h \bm{s}_i$, where $\bm{s}_i$ store its coordinates
-$\xi_i$, $\eta_i$, and $\zeta_i$, each from $0$ to $1$. Then they
-introduced a Lagrangian
+$\xi_i$, $\eta_i$, and $\zeta_i$, i.e., reduced coordinates mentioned below.
+Then they introduced a Lagrangian
 \begin{equation}\label{eq:rplag}
 	\mathcal{L} = \frac{ 1 }{ 2 } \sum_{i=1}^{N} m_i \dot{ \bm{s} }_i \tran
 	g \dot{ \bm{s} }_i - \sum_{i=1}^{N} \sum_{i<j} \phi (r_{ij}) +
@@ -140,7 +141,7 @@ Then the equations of motion are
 where $\sigma = \{\bm{a}\times \bm{b},
 	\bm{b}\times \bm{c}, \bm{c}\times \bm{a}\}$,
 matrix $\Pi$ is given by
-\begin{equation}
+\begin{equation}\label{eq:pim&frr}
 	\Omega \Pi = \sum_{i=1}^{N} m_i \bm{v}_i \bm{v}_i\tran
 	+ \sum_{i=1}^{N} \sum_{i<j} \frac{ \phi'(r_{ij}) }{ r_{ij} }
 	(\bm{r}_i - \bm{r}_j) (\bm{r}_i - \bm{r}_j)\tran,

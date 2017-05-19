@@ -1,0 +1,58 @@
+% !TEX root = report.tex
+
+\subsubsection{\texttt{CRSTL} subroutine}
+
+This subroutine does some pre-setting work before \texttt{INIT}.
+
+First read the $3 \times 3$ matrix \texttt{avec} from \texttt{inp} file.
+If \texttt{ic} flag is \texttt{'s'},
+since it is in reduced coordinates, we need to rewrite it in Cartesian
+coordinates. First store the sign of each entry, the do some transformation according to
+the corresponding \texttt{iop} matrix entry(\textcolor{red}{What is this?}). The
+rules are
+\begin{equation}\label{eq:crstltrans}
+ h(i, j) = \sign \big( h(i, j) \big) \times a_0 \times n(j)
+ \begin{cases}
+  \sqrt{h(i, j)},                 & \text{\texttt{iop(i,j)} is \texttt{'s'};} \\
+  h(i, j)^{1/3},                  & \text{\texttt{iop(i,j)} is \texttt{'c'};} \\
+  \frac{ 1 }{ 3 } h(i, j),        & \text{\texttt{iop(i,j)} is \texttt{'c'};} \\
+  \frac{ 1 }{ \sqrt{3} } h(i, j), & \text{\texttt{iop(i,j)} is \texttt{'t'},}
+ \end{cases}
+\end{equation}
+where $n(j)$ denotes the number of primitive cells along $j$th direction.
+If \texttt{ic} is \texttt{'c'}, i.e., in an intermediate run,
+then read \texttt{avec}, \texttt{avecd}, \texttt{avec2di} from last run as
+input for subsequent runs, and write them to standard output.
+
+\begin{table}[h]
+ \centering
+ \caption{List of some variables in \texttt{CRSTL} subroutine.}
+ \begin{tabular}{@{}lcr@{}}
+  \toprule
+  {variable name}                        & variable symbol                                 & variable       \\
+  \midrule
+  lattice vectors matrix                 & $h = \{ \bm{a}, \bm{b}, \bm{c} \}$              & \texttt{avec}  \\
+  atomic position in reduced coordinates & $\bm{s}_i = \{\xi_i, \eta_i, \zeta_i\}$         & \texttt{rat}   \\
+  atomic velocity in reduced coordinates & $\dot{ \bm{s} }_i$                              & \texttt{ratd}  \\
+  number of primitive cells              & $n$                                             & \texttt{nsc}   \\
+  lattice parameter                      & $a_0$                                           & \texttt{alatt} \\
+  fictitious mass                        & $W$                                             & \texttt{cmass} \\
+  external pressure                      & $P$                                             & \texttt{press} \\
+  reciprocal lattice vectors matrix      & $\sigma$                                        & \texttt{sigma} \\
+  metric tensor                          & $g = h \tran h$                                 & \texttt{g}     \\
+  metric tensor velocity                 & $\dot{g} = \dot{ h }\tran h + h \dot{ h }\tran$ & \texttt{gd}    \\
+  metric tensor inverse                  & $g^{-1}$                                        & \texttt{gm1}   \\
+  \bottomrule
+ \end{tabular}%
+ \label{tab:crstl}%
+\end{table}%
+
+Then calculate cell volume $\Omega$, metric tensor $g$ and $g^{-1}$, which are
+treated as part of the outputs of this subroutine.
+
+Then read positions \texttt{rat} for each atom of each type.
+If \texttt{ic} flag is \texttt{'s'},
+then do similar transformation of these positions as $\eqref{eq:crstltrans}$ does;
+if it is \texttt{'c'}, i.e., it is an intermediate step, then read
+\texttt{avec}, \texttt{avecd}, \texttt{avec2di} from last run,
+and write to standard output.

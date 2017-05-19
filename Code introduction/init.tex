@@ -1,0 +1,65 @@
+% !TEX root = report.tex
+
+\subsubsection{\texttt{INIT} subroutine}
+
+First call \texttt{RANV} subroutine,
+generate some initial random positions for each atom of each type.
+\texttt{ilj} is the only variable set by hand in code, if it is equal to $1$,
+the code will call \texttt{FORCLJ} subroutine, else it will call \texttt{FORC}
+subroutine, see \ref{sssec:forc} and \ref{sssec:forclj} for differences.
+
+Then if \texttt{calc} flag is not set to \texttt{md} and \texttt{mm},
+Rahman--Parrinello approach is conducted, see \ref{ssec:rpa} for detail.
+First, \texttt{gmgd}, i.e., $g^{-1} \dot{g}$ is calculated.
+Then for each atom of each type,
+\texttt{rat2d}, i.e., $\ddot{\bm{s}}_i = g^{-1} \dot{g} \dot{ \bm{s} }_i$ is calculated.
+Also, \texttt{pim}, i.e., $\Pi$ is calculated according to $\eqref{eq:pim&frr}$.
+Then $\ddot{h}$ is calculated according to $\eqref{eq:hdd}$.
+
+If \texttt{calc} flag is set to \texttt{nd} or \texttt{nm}
+then \texttt{SIGP} is called, if it is set to \texttt{sd} or
+\texttt{sm} then \texttt{SIGS} is called, see \ref{sssec:sigs&p}
+for more detail.
+With
+$\sigma_0 =
+\{
+\bm{a}_0 \times \bm{b}_0, \bm{b}_0 \times \bm{c}_0,
+\bm{c}_0 \times \bm{a}_0
+\}
+= \frac{ V_0 }{ 2\pi } \{
+\bm{c}^\ast_0, \bm{a}^\ast_0, \bm{b}^\ast_0
+\}$,
+we know
+$\ddot{d} = \frac{ 1 }{ V_0 }\ddot{h} \sigma_0$.
+Then we do strain symmetrization, $\ddot{d}_{ij} = \frac{ 1 }{ 2 }
+(\ddot{d}_{ij} + \ddot{d}_{ji})$.
+Then $\ddot{h} = \ddot{d} h_0$.
+
+If in \texttt{nd} or \texttt{nm}, we do
+$\Tr (\dot{h}\tran \sigma \sigma \dot{h})$.
+
+If in \texttt{sd} or \texttt{sm}, we do
+$\Tr(\dot{h}\tran \sigma_0 \sigma_0\tran \dot{ h })$.
+
+Then in both cases, we do
+\texttt{ekl} $=$ \texttt{ekl} + $\Tr (\dot{ h }\tran \dot{ h })$.
+
+Total kinetic energy is $E_{t} = $ \texttt{eka} + $\frac{ 1 }{ 2 } W ekl$,
+where $W$ is the fictitious mass,
+total potential energy $U_{t} = ???E_{t} + P \Omega$, where $P$ is the external pressure.
+Total energy is $\mathscr{E}_{t} = E_t + U_{t}$.
+
+\begin{table}[h]
+ \centering
+ \caption{List of some variables in \texttt{INIT} subroutine.}
+ \begin{tabular}{@{}lcr@{}}
+  \toprule
+  {variable name}         & variable symbol & variable        \\
+  \midrule
+  $\Pi$ matrix            & $\Pi$           & \texttt{pim}    \\
+  forces on basis vectors & $\ddot{h}$      & \texttt{avec2d} \\
+  pressure                & $P$             & \texttt{press}  \\
+  \bottomrule
+ \end{tabular}%
+ \label{tab:init}%
+\end{table}%

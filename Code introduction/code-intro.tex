@@ -1,0 +1,47 @@
+% !TEX root = report.tex
+
+\section{Molecular dynamics code}
+
+The following part is an introduction on how to use
+Wentzcovitch's code to perform MD simulation. The code is
+based on one of her papers.\cite{Wentzcovitch:1991ka}
+
+There are $4$ types of simulations in code,
+denoted as \texttt{md}, \texttt{cd}, \texttt{nd}, \texttt{sd},
+respectively. The first one means ``molecular dynamics'',
+based on Andersen's paper,\cite{Andersen:1980ew},
+the second one means ``cell dynamics'', based on
+Rahman–Parrinello approach,\cite{Parrinello:1980kx},
+the main equations are $\eqref{eq:rpeqm}$.
+The third case is called ``new cell dynamics'' and is based on
+$\eqref{eq:rpsdd}$ and $\eqref{eq:wenzhdd2}$,
+the last one is called ``strain dynamics'' and is based on
+$\eqref{eq:rpsdd}$ and $\eqref{eq:wenzhdd}$.
+
+The simulation is done under zero temperature, as stated above.
+
+\texttt{mxdtyp} denotes the array dimension for type of atoms,
+in the input file there will be a line labeled by \texttt{(ntype)}, it
+contains a scalar, i.e., number of atom types, so \texttt{mxdtyp} $=1$.
+
+\input{"Code introduction/celq"}
+
+\subsection{Setup steps}
+
+\input{"Code introduction/crstl"}
+
+\input{"Code introduction/init"}
+
+\input{"Code introduction/rdpp"}
+
+\input{"Code introduction/ranv"}
+
+\subsection{Force calculation}
+
+\input{"Code introduction/forclj"}
+
+\input{"Code introduction/forc"}
+
+\input{"Code introduction/updg"}
+
+\input{"Code introduction/sigsp"}
