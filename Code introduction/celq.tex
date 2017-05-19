@@ -2,13 +2,15 @@
 
 \subsection{Main program}
 
-Read \texttt{nstep} from input file, determine how many steps are
-to be performed in the following MD loop.
+First we call \texttt{CRSTL} subroutine, see \ref{sssec:crstl} for more detail.
+Second we call \texttt{INIT} subroutine, see \ref{sssec:init} for more detail.
+
+
 
 Then we start a MD loop.
 First update the current step \texttt{nzero}, and then update those
 accumulators \texttt{acu}, \texttt{ack} and \texttt{acp}, then calculate
-their averages by dividing \texttt{nzero}. Then call \texttt{move} subroutine,
+their averages by dividing \texttt{nzero}. Then call \texttt{MOVE} subroutine,
 \texttt{p} is updated during this step, however \texttt{vcell} is not.
 Then calculate $p \Omega$ and do a corresponding accumulator \texttt{acpv} and
 average \texttt{avpv}. And then, update arrays like \texttt{utm} with length
@@ -30,13 +32,13 @@ Then do rescaling on Cartesian velocity \texttt{v} and reduced velocity
   \multirow{4}[2]{*}{total}                                                         & potential energy     & $U_t$           & \texttt{utm}    & \multirow{4}[2]{*}{\texttt{e}}   \\
                                                                                     & total kinetic energy & $E_t$           & \texttt{ekintm} &                                  \\
                                                                                     & energy               & $\mathscr{E}_t$ & \texttt{etotm}  &                                  \\
-                                                                                    & $p \Omega$           & $p \Omega$      & \texttt{pvm}    &                                  \\
-  \cmidrule{1-1}\cmidrule{4-5}    \multirow{3}[2]{*}{atomic contribution to total}  & potential energy     &                 & \texttt{utam}   & \multirow{6}[4]{*}{\texttt{eal}} \\
-                                                                                    & kinetic energy       &                 & \texttt{ekam}   &                                  \\
-                                                                                    & energy               &                 & \texttt{etam}   &                                  \\
-  \cmidrule{1-1}\cmidrule{4-4}    \multirow{3}[2]{*}{lattice contribution to total} & potential energy     &                 & \texttt{utlm}   &                                  \\
-                                                                                    & kinetic energy       &                 & \texttt{eklm}   &                                  \\
-                                                                                    & energy               &                 & \texttt{etlm}   &                                  \\
+                                                                                    & $P \Omega$           & $P \Omega$      & \texttt{pvm}    &                                  \\
+  \cmidrule{1-1}\cmidrule{4-5}    \multirow{3}[2]{*}{atomic contribution to total}  & potential energy     & $U_a$           & \texttt{utam}   & \multirow{6}[4]{*}{\texttt{eal}} \\
+                                                                                    & kinetic energy       & $E_a$           & \texttt{ekam}   &                                  \\
+                                                                                    & energy               & $\mathscr{E}_a$ & \texttt{etam}   &                                  \\
+  \cmidrule{1-1}\cmidrule{4-4}    \multirow{3}[2]{*}{lattice contribution to total} & potential energy     & $U_l$           & \texttt{utlm}   &                                  \\
+                                                                                    & kinetic energy       & $E_l$           & \texttt{eklm}   &                                  \\
+                                                                                    & energy               & $\mathscr{E}_l$ & \texttt{etlm}   &                                  \\
   \cmidrule{1-1}\cmidrule{4-5}    \multirow{2}[2]{*}{average of accumulated}        & potential energy     & $\mean{U}_t$    & \texttt{avum}   & \multirow{2}[2]{*}{\texttt{ave}} \\
                                                                                     & kinetic energy       & $\mean{E}_t$    & \texttt{avkm}   &                                  \\
   \bottomrule

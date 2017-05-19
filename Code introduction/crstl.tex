@@ -1,6 +1,7 @@
 % !TEX root = report.tex
 
 \subsubsection{\texttt{CRSTL} subroutine}
+\label{sssec:crstl}
 
 This subroutine does some pre-setting work before \texttt{INIT}.
 
@@ -15,8 +16,8 @@ rules are
  \begin{cases}
   \sqrt{h(i, j)},                 & \text{\texttt{iop(i,j)} is \texttt{'s'};} \\
   h(i, j)^{1/3},                  & \text{\texttt{iop(i,j)} is \texttt{'c'};} \\
-  \frac{ 1 }{ 3 } h(i, j),        & \text{\texttt{iop(i,j)} is \texttt{'c'};} \\
-  \frac{ 1 }{ \sqrt{3} } h(i, j), & \text{\texttt{iop(i,j)} is \texttt{'t'},}
+  \frac{ 1 }{ 3 } h(i, j),        & \text{\texttt{iop(i,j)} is \texttt{'t'};} \\
+  \frac{ 1 }{ \sqrt{3} } h(i, j), & \text{\texttt{iop(i,j)} is \texttt{'h'},}
  \end{cases}
 \end{equation}
 where $n(j)$ denotes the number of primitive cells along $j$th direction.
@@ -56,3 +57,10 @@ then do similar transformation of these positions as $\eqref{eq:crstltrans}$ doe
 if it is \texttt{'c'}, i.e., it is an intermediate step, then read
 \texttt{avec}, \texttt{avecd}, \texttt{avec2di} from last run,
 and write to standard output.
+
+Then it calls \texttt{SPCEL} subroutine, build super cell along $3$ directions.
+
+Read \texttt{nstep} from input file, determine how many steps are
+to be performed in the following MD loop.
+
+At last it calls \texttt{RDPP} subroutine.

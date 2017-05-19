@@ -1,6 +1,7 @@
 % !TEX root = report.tex
 
 \subsubsection{\texttt{INIT} subroutine}
+\label{sssec:init}
 
 First call \texttt{RANV} subroutine,
 generate some initial random positions for each atom of each type.
@@ -20,33 +21,34 @@ If \texttt{calc} flag is set to \texttt{nd} or \texttt{nm}
 then \texttt{SIGP} is called, if it is set to \texttt{sd} or
 \texttt{sm} then \texttt{SIGS} is called, see \ref{sssec:sigs&p}
 for more detail.
-With
+From these $2$ subroutines we know
+\begin{equation}
+ \ddot{d} = \frac{ \ddot{h} }{ h_0 } = \frac{ \ddot{h} \sigma_0}{V_0},
+\end{equation}
+where
 $\sigma_0 =
 \{
-\bm{a}_0 \times \bm{b}_0, \bm{b}_0 \times \bm{c}_0,
-\bm{c}_0 \times \bm{a}_0
+\bm{b}_0 \times \bm{c}_0, \bm{c}_0 \times \bm{a}_0,
+\bm{a}_0 \times \bm{b}_0
 \}
 = \frac{ V_0 }{ 2\pi } \{
-\bm{c}^\ast_0, \bm{a}^\ast_0, \bm{b}^\ast_0
-\}$,
-we know
-$\ddot{d} = \frac{ 1 }{ V_0 }\ddot{h} \sigma_0$.
-Then we do strain symmetrization, $\ddot{d}_{ij} = \frac{ 1 }{ 2 }
-(\ddot{d}_{ij} + \ddot{d}_{ji})$.
-Then $\ddot{h} = \ddot{d} h_0$.
+\bm{a}^\ast_0, \bm{b}^\ast_0, \bm{c}^\ast_0
+\} = \frac{ V_0 }{ \{\bm{a}_0, \bm{b}_0, \bm{c}_0 \} } = \frac{ V_0 }{ h_0 }$.
+However, $\ddot{h}$ is not symmetrized here, so we need to do
+strain symmetrization, $\ddot{d}_{ij} = \frac{ 1 }{ 2 }
+(\ddot{d}_{ij} + \ddot{d}_{ji})$, and then solve
+$\ddot{h} = \ddot{d} h_0$.
 
-If in \texttt{nd} or \texttt{nm}, we do
-$\Tr (\dot{h}\tran \sigma \sigma \dot{h})$.
+If \texttt{calc} is \texttt{nd} or \texttt{nm}, we do
+$e_l = \Tr (\dot{h}\tran \sigma \sigma\tran \dot{h})$; if \texttt{calc} is  \texttt{sd} or \texttt{sm}, we do
+$e_l = \Tr(\dot{h}\tran \sigma_0 \sigma_0\tran \dot{ h })$; 
+if \texttt{calc} is \texttt{md} or \texttt{mm}, we do $e_l = \Tr(\dot{h}\tran \dot{ h })$.
 
-If in \texttt{sd} or \texttt{sm}, we do
-$\Tr(\dot{h}\tran \sigma_0 \sigma_0\tran \dot{ h })$.
-
-Then in both cases, we do
-\texttt{ekl} $=$ \texttt{ekl} + $\Tr (\dot{ h }\tran \dot{ h })$.
-
-Total kinetic energy is $E_{t} = $ \texttt{eka} + $\frac{ 1 }{ 2 } W ekl$,
-where $W$ is the fictitious mass,
-total potential energy $U_{t} = ???E_{t} + P \Omega$, where $P$ is the external pressure.
+Total kinetic energy is $E_t = \sum_{i} \frac{ 1 }{ 2 } m_i v_i^2 + \frac{ 1 }{ 2 } W e_l$,
+where $W$ is the fictitious mass, and $\sum_{i} \frac{ 1 }{ 2 } m_i v_i^2$
+results from \texttt{RANV} subroutine.
+Total potential energy $U_{t} = \sum_{i} u_i + P \Omega$, where $P$ is the external pressure,
+and $\sum_{i} u_i$ results from \texttt{FORCLJ} or \texttt{FORC} subroutine.
 Total energy is $\mathscr{E}_{t} = E_t + U_{t}$.
 
 \begin{table}[h]
@@ -54,11 +56,12 @@ Total energy is $\mathscr{E}_{t} = E_t + U_{t}$.
  \caption{List of some variables in \texttt{INIT} subroutine.}
  \begin{tabular}{@{}lcr@{}}
   \toprule
-  {variable name}         & variable symbol & variable        \\
+  variable name           & variable symbol                       & variable        \\
   \midrule
-  $\Pi$ matrix            & $\Pi$           & \texttt{pim}    \\
-  forces on basis vectors & $\ddot{h}$      & \texttt{avec2d} \\
-  pressure                & $P$             & \texttt{press}  \\
+  $\Pi$ matrix            & $\Pi$                                 & \texttt{pim}    \\
+  forces on basis vectors & $\ddot{h}$                            & \texttt{avec2d} \\
+  pressure                & $P$                                   & \texttt{press}  \\
+                          & $d = (1 + \epsilon)\tran(1+\epsilon)$ & \texttt{d2}     \\
   \bottomrule
  \end{tabular}%
  \label{tab:init}%
