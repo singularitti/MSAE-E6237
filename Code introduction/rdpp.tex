@@ -7,8 +7,8 @@ Here \texttt{ntype} is the number of different types of atoms.
 It reads the potential of $i$th atom and $j$th atom, where $j \geq i$.
 So in the code we need to do some assignments like
 \begin{align}
- U_{ij}      & = U_{ji},      \\
- \bm{F}_{ij} & = \bm{F}_{ji},
+	U_{ij}      & = U_{ji},      \\
+	\bm{F}_{ij} & = \bm{F}_{ji}, 
 \end{align}
 where $U_{ji}$ and $\bm{F}_{ji}$ are what we read from file,
 thus we can save time on IO operations.

@@ -11,33 +11,33 @@ More detailedly, \texttt{ELJ} uses the Lennard--Jones scheme.
 
 The Lennard--Jones potential has general form
 \begin{equation}
- U(r) = 4\varepsilon \bigg( \Big( \frac{ \sigma }{ r } \Big) ^ {12} -
- \Big( \frac{ \sigma }{ r } \Big) ^ 6 \bigg),
+	U(r) = 4\varepsilon \bigg( \Big( \frac{ \sigma }{ r } \Big) ^ {12} -
+	\Big( \frac{ \sigma }{ r } \Big) ^ 6 \bigg),
 \end{equation}
 where $r$ is the distance between $2$ atoms, $\sigma$ and $\varepsilon$
 are constants.
 The force is calculated by
 \begin{equation}
- \bm{F}_{ji} = \frac{ 24\varepsilon }{ \sigma } (\bm{r}_j - \bm{r}_i)
- \bigg( 2\Big( \frac{ \sigma }{ r } \Big) ^ {14} -
- \Big( \frac{ \sigma }{ r } \Big) ^ 8 \bigg),
+	\bm{F}_{ji} = \frac{ 24\varepsilon }{ \sigma } (\bm{r}_j - \bm{r}_i)
+	\bigg( 2\Big( \frac{ \sigma }{ r } \Big) ^ {14} -
+	\Big( \frac{ \sigma }{ r } \Big) ^ 8 \bigg),
 \end{equation}
 where $r = \lvert \bm{r}_j - \bm{r}_i \rvert$, or equivalently, its scalar form
 \begin{equation}
- F(r) = \frac{ 24\varepsilon }{ \sigma }
- \bigg( 2\Big( \frac{ \sigma }{ r } \Big) ^ {13} -
- \Big( \frac{ \sigma }{ r } \Big) ^ 7 \bigg),
+	F(r) = \frac{ 24\varepsilon }{ \sigma }
+	\bigg( 2\Big( \frac{ \sigma }{ r } \Big) ^ {13} -
+	\Big( \frac{ \sigma }{ r } \Big) ^ 7 \bigg),
 \end{equation}
 which is plotted in Fig. \ref{fig:ljar}.
 
 \begin{figure}[h]
- \centering
- \includegraphics[width=0.5\linewidth]{lj_ar.pdf}
- \caption{Lennard--Jones potential and force for $\ce{Ar}$, as a function of
-  distance between $2$ atoms, with
-  $\sigma=3.405\times 10^{-10}\si{\meter}$,
-  $\varepsilon = 1.654\times 10^{-21}\si{\joule}$.\cite{buffalomd}}
- \label{fig:ljar}
+	\centering
+	\includegraphics[width=0.5\linewidth]{lj_ar.pdf}
+	\caption{Lennard--Jones potential and force for $\ce{Ar}$, as a function of
+		distance between $2$ atoms, with
+		$\sigma=3.405\times 10^{-10}\si{\meter}$,
+		$\varepsilon = 1.654\times 10^{-21}\si{\joule}$.\cite{buffalomd}}
+	\label{fig:ljar}
 \end{figure}
 
 Back to \texttt{FORCLJ} subroutine,

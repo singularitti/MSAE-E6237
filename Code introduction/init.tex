@@ -23,7 +23,7 @@ then \texttt{SIGP} is called, if it is set to \texttt{sd} or
 for more detail.
 From these $2$ subroutines we know
 \begin{equation}
- \ddot{d} = \frac{ \ddot{h} }{ h_0 } = \frac{ \ddot{h} \sigma_0}{V_0},
+	\ddot{d} = \frac{ \ddot{h} }{ h_0 } = \frac{ \ddot{h} \sigma_0}{V_0},
 \end{equation}
 where
 $\sigma_0 =
@@ -39,11 +39,17 @@ strain symmetrization, $\ddot{d}_{ij} = \frac{ 1 }{ 2 }
 (\ddot{d}_{ij} + \ddot{d}_{ji})$, and then solve
 $\ddot{h} = \ddot{d} h_0$.
 
-If \texttt{calc} is \texttt{nd} or \texttt{nm}, we do
-$e_l = \Tr (\dot{h}\tran \sigma \sigma\tran \dot{h})$; if \texttt{calc} is  \texttt{sd} or \texttt{sm}, we do
-$e_l = \Tr(\dot{h}\tran \sigma_0 \sigma_0\tran \dot{ h })$; 
-if \texttt{calc} is \texttt{md} or \texttt{mm}, we do $e_l = \Tr(\dot{h}\tran \dot{ h })$.
+The lattice contribution to kinetic energy is
+\begin{equation}\label{eq:calc}
+	e_l = 
+	\begin{cases}
+		\Tr (\dot{h}\tran \sigma \sigma\tran \dot{h}),      & \text{\texttt{calc} is \texttt{nd} or \texttt{nm};} \\
+		\Tr(\dot{h}\tran \sigma_0 \sigma_0\tran \dot{ h }), & \text{\texttt{calc} is \texttt{sd} or \texttt{sm};} \\
+		\Tr(\dot{h}\tran \dot{ h }),                        & \text{\texttt{calc} is \texttt{md} or \texttt{mm}.} 
+	\end{cases}
+\end{equation}
 
+Then it calculates initial energies.
 Total kinetic energy is $E_t = \sum_{i} \frac{ 1 }{ 2 } m_i v_i^2 + \frac{ 1 }{ 2 } W e_l$,
 where $W$ is the fictitious mass, and $\sum_{i} \frac{ 1 }{ 2 } m_i v_i^2$
 results from \texttt{RANV} subroutine.
@@ -52,17 +58,17 @@ and $\sum_{i} u_i$ results from \texttt{FORCLJ} or \texttt{FORC} subroutine.
 Total energy is $\mathscr{E}_{t} = E_t + U_{t}$.
 
 \begin{table}[h]
- \centering
- \caption{List of some variables in \texttt{INIT} subroutine.}
- \begin{tabular}{@{}lcr@{}}
-  \toprule
-  variable name           & variable symbol                       & variable        \\
-  \midrule
-  $\Pi$ matrix            & $\Pi$                                 & \texttt{pim}    \\
-  forces on basis vectors & $\ddot{h}$                            & \texttt{avec2d} \\
-  pressure                & $P$                                   & \texttt{press}  \\
-                          & $d = (1 + \epsilon)\tran(1+\epsilon)$ & \texttt{d2}     \\
-  \bottomrule
- \end{tabular}%
- \label{tab:init}%
+	\centering
+	\caption{List of some variables in \texttt{INIT} subroutine.}
+	\begin{tabular}{@{}lcr@{}}
+		\toprule
+		variable name           & variable symbol                       & variable        \\
+		\midrule
+		$\Pi$ matrix            & $\Pi$                                 & \texttt{pim}    \\
+		forces on basis vectors & $\ddot{h}$                            & \texttt{avec2d} \\
+		pressure                & $P$                                   & \texttt{press}  \\
+		                        & $d = (1 + \epsilon)\tran(1+\epsilon)$ & \texttt{d2}     \\
+		\bottomrule
+	\end{tabular}%
+	\label{tab:init}%
 \end{table}%

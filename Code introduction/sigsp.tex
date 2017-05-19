@@ -12,7 +12,7 @@ At last, the result returned is $\ddot{h}$.
 In \texttt{SIGS} subroutine,
 firstly calculates $f_0^{-1}$, by definition it is
 \begin{equation}
- f_0^{-1} = \frac{ h_0 \tran h_0}{ V_0^2 },
+	f_0^{-1} = \frac{ h_0 \tran h_0}{ V_0^2 },
 \end{equation}
 then set an argument \texttt{avint} to temporally store $\ddot{h}$,
 and perform calculation $\ddot{h} = \ddot{h} f_0^{-1}$.
@@ -21,13 +21,13 @@ This subroutine also returns $\ddot{h}$ in the end.
 In \texttt{SIGP} subroutine,
 firstly calculates $f^{-1}$, by definition we know it is
 \begin{equation}
- f^{-1} = \frac{ h \tran h }{ V^2 },
+	f^{-1} = \frac{ h \tran h }{ V^2 },
 \end{equation}
 and $e = \dot{ h }\tran \dot{ h }$, as stated above, as well as
 a $3\times 3 \times 3 \times 3$ tensor
 \begin{equation}
- f ' = \frac{ \partial f }{ \partial h_{ij} } = (\sigma'_{ij})\tran \sigma
- + \sigma \tran \sigma'_{ij},
+	f ' = \frac{ \partial f }{ \partial h_{ij} } = (\sigma'_{ij})\tran \sigma
+	+ \sigma \tran \sigma'_{ij},
 \end{equation}
 where $\sigma'$ is denoted as \texttt{sigmap} in code, another $3\times 3
 \times 3 \times 3$ tensor.
