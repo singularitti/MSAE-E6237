@@ -10,7 +10,7 @@ the code will call \texttt{FORCLJ} subroutine, else it will call \texttt{FORC}
 subroutine, see \ref{sssec:forc} and \ref{sssec:forclj} for differences.
 
 Then if \texttt{calc} flag is not set to \texttt{md} and \texttt{mm},
-Rahman--Parrinello approach is conducted, see \ref{ssec:rpa} for detail.
+Rahman--Parrinello approach is conducted, see \ref{sssec:rpa} for detail.
 First, \texttt{gmgd}, i.e., $g^{-1} \dot{g}$ is calculated.
 Then for each atom of each type,
 \texttt{rat2d}, i.e., $\ddot{\bm{s}}_i = g^{-1} \dot{g} \dot{ \bm{s} }_i$ is calculated.
@@ -41,11 +41,11 @@ $\ddot{h} = \ddot{d} h_0$.
 
 The lattice contribution to kinetic energy is
 \begin{equation}\label{eq:calc}
-	e_l = 
+	e_l =
 	\begin{cases}
 		\Tr (\dot{h}\tran \sigma \sigma\tran \dot{h}),      & \text{\texttt{calc} is \texttt{nd} or \texttt{nm};} \\
 		\Tr(\dot{h}\tran \sigma_0 \sigma_0\tran \dot{ h }), & \text{\texttt{calc} is \texttt{sd} or \texttt{sm};} \\
-		\Tr(\dot{h}\tran \dot{ h }),                        & \text{\texttt{calc} is \texttt{md} or \texttt{mm}.} 
+		\Tr(\dot{h}\tran \dot{ h }),                        & \text{\texttt{calc} is \texttt{md} or \texttt{mm}.}
 	\end{cases}
 \end{equation}
 

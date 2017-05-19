@@ -5,8 +5,8 @@
 % !TEX outputDirectory = build.noindex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass[12pt]{article}
-\input{packages}
-\input{newcommands}
+\input{Preamble/packages}
+\input{Preamble/newcommands}
 
 \title{TBA}		% Title
 \author{Qi Zhang (UNI: \Oldtexttt{qz2280})}								% Author
@@ -22,17 +22,17 @@
 \begin{document}
 \bibliographystyle{unsrt}
 
-\include{cover}
+\include{Rest/cover}
 \tableofcontents
 \listoffigures
 \listoftables
 
-\include{algorithms}
-\include{invariant-md}
-\include{abinitio-md}
+\include{Algorithms/algorithms}
+\include{Theory/invariant-md}
+\include{Theory/abinitio-md}
 \input{"Code introduction/code-intro"}
-\include{input-intro}
+\include{"Code introduction/input-intro"}
 
-\bibliography{thebib}
+\bibliography{Rest/thebib}
 \nocite{dufty1986molecular}
 \end{document}

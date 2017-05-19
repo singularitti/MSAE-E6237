@@ -1,12 +1,14 @@
 % !TEX root = report.tex
 
-\section{Invariant molecular dynamics with variable cell shape: the history}
+\section{Research proposal}
+
+\subsection{Invariant molecular dynamics with variable cell shape: the history}
 
 Here lists some key papers to keep track the purposes and methods of this
 simulation.
 
 
-\subsection{Andersen's approach}
+\subsubsection{Andersen's approach}
 
 Andersen first extends the molecular dynamics field to
 ensembles other than micro-canonical ensemble.\cite{Andersen:1980ew}
@@ -105,8 +107,8 @@ $\overline{G} = \overline{F}$, thus we get the NPH ensemble average.
 The ensemble pressure $P$ is $\alpha$ in $\eqref{eq:andersenlagrang}$ indeed.
 
 
-\subsection{Rahman--Parrinello approach}
-\label{ssec:rpa}
+\subsubsection{Rahman--Parrinello approach}
+\label{sssec:rpa}
 
 Rahman and Parrinello then proposed a method to perform
 MD simulations which allows volume and shape of the MD cell
@@ -147,7 +149,7 @@ matrix $\Pi$ is given by
 	(\bm{r}_i - \bm{r}_j) (\bm{r}_i - \bm{r}_j)\tran,
 \end{equation}
 with $\bm{v}_i = h \bm{s}_i$.
-Then Andersen's equations of motion is a special case of 
+Then Andersen's equations of motion is a special case of
 $\eqref{eq:rpeqm}$,
 where $h = \diag (\Omega^{\frac{ 1 }{ 3 }}, \ldots,
 	\Omega^{\frac{ 1 }{ 3 }})$ and $g^{-1} \dot{g} =
@@ -157,7 +159,7 @@ this Lagrangian also results in a isoenthalpic, isobaric ensemble,
 though with a small correction from the third term.
 
 
-\subsection{Wentzcovitch's approach}
+\subsubsection{Wentzcovitch's approach}
 
 Wentzcovitch stated that Rahman--Parrinello method is dependent on
 the choice of cell edges.\cite{Wentzcovitch:1991ka}
