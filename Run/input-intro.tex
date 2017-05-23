@@ -1,0 +1,57 @@
+% !TEX root = report.tex
+
+\subsection{Input file}
+
+Now let's have a look at the input file.
+
+First we see the first input file \texttt{inp1}, with $4$ \ce{Ar} atoms in a FCC cell,
+the atom mass is assumed to be \SI{40}{\atomicmassunit},
+see Fig. \ref{fig:fcc1} for reference.
+\begin{figure}[h]
+ \centering
+ \input{Run/Tikz/FCC1}
+ \caption{A FCC cell of \ce{Ar} for \texttt{inp1}.}
+ \label{fig:fcc1}
+\end{figure}
+
+Run the simulation code, we derive the following results,
+see Fig. \ref{fig:input1} for reference.
+\begin{figure}[h]
+ \centering
+ \begin{minipage}[t]{0.45\textwidth}
+  \includegraphics[width=\linewidth]{input1/avec_abc}
+  \subcaption{Lattice parameters of \texttt{inp1}. The dashed dot lines are upper and lower
+   bound of the lattice parameters. We can see that $a$, $b$, $c$ lines coincide with each
+  other.}
+  \label{fig:input1:ee}
+ \end{minipage}
+ \hfil
+ \begin{minipage}[t]{0.45\textwidth}
+  \includegraphics[width=\linewidth]{input1/t}
+  \subcaption{Total energy of \texttt{inp1}. The dashed dot lines are upper and lower
+   bound of the total kinetic energy and total potential energy. Total energy is the sum
+  of the other two.}
+  \label{fig:input1:e}
+ \end{minipage}
+ \hfil
+ \vfill
+ \begin{minipage}[t]{0.45\textwidth}
+  \includegraphics[width=\linewidth]{input1/a}
+  \subcaption{Atomic contribution to total energy of \texttt{inp1}.
+   The dashed dot lines are upper and lower bound of the
+   total atomic energy. We can see that atoms do not contribute
+  to total kinetic energy.}
+  \label{fig:input1:a}
+ \end{minipage}
+ \hfil
+ \begin{minipage}[t]{0.45\textwidth}
+  \includegraphics[width=\linewidth]{input1/l}
+  \subcaption{Lattice contribution to total energy of \texttt{inp1}.
+   The dashed dot lines are upper and lower bound of the
+   total lattice energy. We can see that lattice do not contribute
+  to total potential energy.}
+  \label{fig:input1:l}
+ \end{minipage}
+ \caption{Simulation results for \texttt{inp1}.}
+ \label{fig:input1}
+\end{figure}

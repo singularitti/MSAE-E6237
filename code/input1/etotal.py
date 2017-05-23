@@ -53,14 +53,38 @@ class TotalEnergy(object):
         else:
             print("Energies mismatch!")
 
-    def plot_total_energy(self, fig, ax, color):
+    def plot_total_energy(self, fig, ax):
         ax.plot(self.timestep, self.total_energy,
-                label="total energy", color=color)
+                label="total energy")
 
-    def plot_total_kinetic(self, fig, ax, color):
+    def plot_total_kinetic(self, fig, ax):
         ax.plot(self.timestep, self.total_kinetic,
-                label="total kinetic energy", color=color)
+                label="total kinetic energy")
 
-    def plot_total_potential(self, fig, ax, color):
+    def plot_total_potential(self, fig, ax):
         ax.plot(self.timestep, self.total_potential,
-                label="total potential", color=color)
+                label="total potential")
+
+    def range_total(self):
+        tmin, tmax = min(self.total_energy), max(self.total_energy)
+        tkmin, tkmax = min(self.total_kinetic), max(self.total_kinetic)
+        tpmin, tpmax = min(self.total_potential), max(self.total_potential)
+        emin, emax = min([tmin, tkmin, tpmin]), max([tmax, tkmax, tpmax])
+        return [emin, emax, tmin, tmax, tkmin, tkmax, tpmin, tpmax]
+
+    def plot_limitline_total(self, fig, ax):
+        # lower_total, upper_total = self.range_total()[2:4]
+        lower_kinetic, upper_kinetic = self.range_total()[4:6]
+        lower_potential, upper_potential = self.range_total()[6:8]
+        # ax.plot([self.timestep[0], self.timestep[-1]],
+        #         [lower_total, lower_total])
+        # ax.plot([self.timestep[0], self.timestep[-1]],
+        #         [upper_total, upper_total])
+        ax.plot([self.timestep[0], self.timestep[-1]],
+                [lower_kinetic, lower_kinetic])
+        ax.plot([self.timestep[0], self.timestep[-1]],
+                [upper_kinetic, upper_kinetic])
+        ax.plot([self.timestep[0], self.timestep[-1]],
+                [lower_potential, lower_potential])
+        ax.plot([self.timestep[0], self.timestep[-1]],
+                [upper_potential, upper_potential])
