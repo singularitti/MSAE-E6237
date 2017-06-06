@@ -1,4 +1,4 @@
-% !TEX root = report.tex
+% !TEX root = ../report.tex
 
 \subsection{Input file}
 
@@ -8,7 +8,7 @@ First we see the first input file \texttt{inp1}, with $4$ \ce{Ar} atoms in a FCC
 the atom mass is assumed to be \SI{36.0}{\atomicmassunit},
 see Fig. \ref{fig:fcc1} for reference.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \begin{minipage}{0.48\textwidth}
     \centering
     \input{Run/Tikz/FCC1}
@@ -27,7 +27,7 @@ see Fig. \ref{fig:fcc1} for reference.
 
 Run the simulation code, we derive the following results,
 see Fig. \ref{fig:input1} for reference.
-\begin{figure}[h]
+\begin{figure}[H]
  \centering
  \begin{minipage}[t]{0.45\textwidth}
   \includegraphics[width=\linewidth]{input1/avec_abc}
@@ -74,11 +74,11 @@ There is not much differences from the first results. But looking in detail,
 we can see that the amplitude of atomic potential in Fig. \ref{fig:input2:a} is not decaying
 and the amplitude of lattice kinetic energy in Fig. \ref{fig:input2:l} is also not decaying
 comparing to the corresponding figures Fig. \ref{fig:input1:a} and Fig. \ref{fig:input1:l},
-respectively. And also, the amplitude of lattice parameter is not decaying in 
+respectively. And also, the amplitude of lattice parameter is not decaying in
 Fig. \ref{fig:input2:avec} rather than in \ref{fig:input1:avec}. We should also be aware of
 that the oscillation frequency of energies, including kinetic and potential, do not change
 as the time step is decreased to $\frac{ 1 }{ 2 }$, we will discuss later on this phenomenon.
-\begin{figure}[h]
+\begin{figure}[H]
   \begin{minipage}[t]{0.45\textwidth}
     \includegraphics[width=\linewidth]{input2/avec_abc}
     \subcaption{Lattice parameters of \texttt{inp2}.}
@@ -109,24 +109,24 @@ as the time step is decreased to $\frac{ 1 }{ 2 }$, we will discuss later on thi
 \end{figure}
 
 For \texttt{inp3}, now we shrink the unit cell size to $\frac{ 1 }{ 4 }$ of the
-\texttt{inp1} and \texttt{inp2}, i.e., there is only $1$ \ce{Ar} atom in the 
+\texttt{inp1} and \texttt{inp2}, i.e., there is only $1$ \ce{Ar} atom in the
 cell. Also, the time step is $100$, the same as \texttt{inp2}.
 See Fig. \ref{fig:fcc3} for reference.
 Now let's see what will happen to the simulation result. see Fig. \ref{fig:input3}
 for reference.
 However, this time, the oscillation frequency of energies and lattice parameters
-both increase by a factor of $2$, this is not astonishing because from 
-$\eqref{eq:hdd}$ we know that 
+both increase by a factor of $2$, this is not astonishing because from
+$\eqref{eq:hdd}$ we know that
 \begin{equation}
-  \omega \propto \sqrt{ 
- \frac{ B }{ W V } 
+  \omega \propto \sqrt{
+ \frac{ B }{ W V }
  },
 \end{equation}
 where $B$ is the bulk modulus.
 Here we again see the decaying phenomenon,
 comparing to simulation of \texttt{inp1}, we see that the oscillation amplitude of
-both 
-\begin{figure}[h]
+both
+\begin{figure}[H]
   \begin{minipage}[t]{0.45\textwidth}
     \includegraphics[width=\linewidth]{input3/avec_abc}
     \subcaption{}
@@ -155,4 +155,3 @@ both
   \caption{\texttt{inp3}.}
   \label{fig:input3}
 \end{figure}
-
