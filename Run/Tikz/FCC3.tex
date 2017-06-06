@@ -18,22 +18,22 @@
  \coordinate (N) at (2,2,0); %center of face DAEH
 
  %place non-atom cube corners
- \shadedraw [ball color= black] (A) circle (0.25cm);
- \shadedraw [ball color= black] (C) circle (0.25cm);
- \shadedraw [ball color= black] (F) circle (0.25cm);
- \shadedraw [ball color= black] (H) circle (0.25cm);
- \shadedraw [ball color= black] (B) circle (0.25cm);
- \shadedraw [ball color= black] (D) circle (0.25cm);
- \shadedraw [ball color= black] (E) circle (0.25cm);
- \shadedraw [ball color= black] (G) circle (0.25cm);
+ \shade [ball color= black] (A) circle (0.25cm);
+ \shade [ball color= black] (C) circle (0.25cm);
+ \shade [ball color= black] (F) circle (0.25cm);
+ \shade [ball color= black] (H) circle (0.25cm);
+ \shade [ball color= black] (B) circle (0.25cm);
+ \shade [ball color= black] (D) circle (0.25cm);
+ \shade [ball color= black] (E) circle (0.25cm);
+ \shade [ball color= black] (G) circle (0.25cm);
 
  %draw the center of each face
- \shadedraw [ball color= black] (I) circle (0.25cm);
- \shadedraw [ball color= black] (J) circle (0.25cm);
- \shadedraw [ball color= black] (K) circle (0.25cm);
- \shadedraw [ball color= black] (L) circle (0.25cm);
- \shadedraw [ball color= black] (M) circle (0.25cm);
- \shadedraw [ball color= black] (N) circle (0.25cm);
+ \shade [ball color= red] (I) circle (0.25cm);
+ \shade [ball color= red] (J) circle (0.25cm);
+ \shade [ball color= red] (K) circle (0.25cm);
+ \shade [ball color= red] (L) circle (0.25cm);
+ \shade [ball color= red] (M) circle (0.25cm);
+ \shade [ball color= red] (N) circle (0.25cm);
 
  %draw cube
  \draw [dashed] (A) -- (B);
@@ -48,4 +48,18 @@
  \draw [dashed] (B) -- (F);
  \draw [dashed] (C) -- (G);
  \draw [dashed] (D) -- (H);
+ 
+ %draw unit cell
+ \draw (E) -- (L);
+ \draw (E) -- (J);
+ \draw [dashed] (E) -- (N);
+ \draw (J) -- (M);
+ \draw (L) -- (M);
+ \draw (J) -- (K);
+ \draw [dashed] (K) -- (N);
+ \draw (K) -- (C);
+ \draw (M) -- (C);
+ \draw (L) -- (I);
+ \draw [dashed] (N) -- (I);
+ \draw (C) -- (I);
 \end{tikzpicture}

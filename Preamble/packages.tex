@@ -1,4 +1,4 @@
-% !TEX root = report.tex
+% !TEX root = ../report.tex
 
 \usepackage[letterpaper, margin=1in]{geometry}
 \usepackage{stix}
@@ -13,7 +13,6 @@
 \usepackage{bm}
 \usepackage{braket}
 \usepackage[version=4]{mhchem}
-\usepackage[yyyymmdd,hhmmss]{datetime}  % Insert "Compiled on ..."
 \usepackage[symbol]{footmisc}  % footnote symbol
 \usepackage[superscript]{cite}  % The option superscript to the cite package affects the citations in the text
 \usepackage[margin=1cm]{caption}  % Limit the figure caption width
@@ -21,14 +20,15 @@
 \usepackage{multirow}
 \usepackage{booktabs}
 \usepackage{tikz}
+\usepackage{float}
 
 \usepackage{siunitx}
 \sisetup{inter-unit-product = \ensuremath{{}\cdot{}}}
 
 \usepackage{fancyhdr}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+\setlength\headheight{14.5pt}
 \pagestyle{fancy}
 \fancyhf{}
-\rhead{\theauthor}
-\lhead{\thetitle}
-\lfoot{Last compiled on {\ddmmyyyydate\today} at \currenttime}
+\lhead{\fancyplain{}{\rightmark }}
 \rfoot{\thepage}

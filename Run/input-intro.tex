@@ -5,13 +5,24 @@
 Now let's have a look at the input file.
 
 First we see the first input file \texttt{inp1}, with $4$ \ce{Ar} atoms in a FCC cell,
-the atom mass is assumed to be \SI{40}{\atomicmassunit},
+the atom mass is assumed to be \SI{36.0}{\atomicmassunit},
 see Fig. \ref{fig:fcc1} for reference.
+
 \begin{figure}[h]
- \centering
- \input{Run/Tikz/FCC1}
- \caption{A FCC cell of \ce{Ar} for \texttt{inp1}.}
- \label{fig:fcc1}
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \input{Run/Tikz/FCC1}
+    \caption{A FCC conventional unit cell of \ce{Ar} for \texttt{inp1}.}
+    \label{fig:fcc1}
+  \end{minipage}
+\hfill
+  \begin {minipage}{0.48\textwidth}
+  \centering
+  \input{Run/Tikz/FCC3}
+  \caption{A FCC primitive unit cell of \ce{Ar} for \texttt{inp3}, with
+  face-center atoms filled in red.}
+  \label{fig:fcc3}
+\end{minipage}
 \end{figure}
 
 Run the simulation code, we derive the following results,
@@ -23,7 +34,7 @@ see Fig. \ref{fig:input1} for reference.
   \subcaption{Lattice parameters of \texttt{inp1}. The dashed dot lines are upper and lower
    bound of the lattice parameters. We can see that $a$, $b$, $c$ lines coincide with each
   other.}
-  \label{fig:input1:ee}
+  \label{fig:input1:avec}
  \end{minipage}
  \hfil
  \begin{minipage}[t]{0.45\textwidth}
@@ -55,3 +66,93 @@ see Fig. \ref{fig:input1} for reference.
  \caption{Simulation results for \texttt{inp1}.}
  \label{fig:input1}
 \end{figure}
+
+If we keep all other simulation parameters the same, but change
+the size of time steps to $100$ in \texttt{inp2} (\texttt{inp1} is $200$) in Rydberg-like units,
+i.e., decrease step size by a half, the results will be shown in Fig. \ref{fig:input2}.
+There is not much differences from the first results. But looking in detail,
+we can see that the amplitude of atomic potential in Fig. \ref{fig:input2:a} is not decaying
+and the amplitude of lattice kinetic energy in Fig. \ref{fig:input2:l} is also not decaying
+comparing to the corresponding figures Fig. \ref{fig:input1:a} and Fig. \ref{fig:input1:l},
+respectively. And also, the amplitude of lattice parameter is not decaying in 
+Fig. \ref{fig:input2:avec} rather than in \ref{fig:input1:avec}. We should also be aware of
+that the oscillation frequency of energies, including kinetic and potential, do not change
+as the time step is decreased to $\frac{ 1 }{ 2 }$, we will discuss later on this phenomenon.
+\begin{figure}[h]
+  \begin{minipage}[t]{0.45\textwidth}
+    \includegraphics[width=\linewidth]{input2/avec_abc}
+    \subcaption{Lattice parameters of \texttt{inp2}.}
+    \label{fig:input2:avec}
+  \end{minipage}
+  \hfil
+  \begin{minipage}[t]{0.45\textwidth}
+    \includegraphics[width=\linewidth]{input2/t}
+    \subcaption{Total energy of \texttt{inp2}.}
+    \label{fig:input2:t}
+  \end{minipage}
+  \hfil
+  \vfill
+  %\vspace*{0.5cm} % (or whatever vertical separation you prefer)
+  \begin{minipage}[t]{0.45\textwidth}
+    \includegraphics[width=\linewidth]{input2/a}
+    \subcaption{Atomic contribution to total energy of \texttt{inp2}.}
+    \label{fig:input2:a}
+  \end{minipage}
+  \hfil
+  \begin{minipage}[t]{0.45\textwidth}
+    \includegraphics[width=\linewidth]{input2/l}
+    \subcaption{Lattice contribution to total energy of \texttt{inp2}.}
+    \label{fig:input2:l}
+  \end{minipage}
+  \caption{Simulation results for \texttt{inp2}.}
+  \label{fig:input2}
+\end{figure}
+
+For \texttt{inp3}, now we shrink the unit cell size to $\frac{ 1 }{ 4 }$ of the
+\texttt{inp1} and \texttt{inp2}, i.e., there is only $1$ \ce{Ar} atom in the 
+cell. Also, the time step is $100$, the same as \texttt{inp2}.
+See Fig. \ref{fig:fcc3} for reference.
+Now let's see what will happen to the simulation result. see Fig. \ref{fig:input3}
+for reference.
+However, this time, the oscillation frequency of energies and lattice parameters
+both increase by a factor of $2$, this is not astonishing because from 
+$\eqref{eq:hdd}$ we know that 
+\begin{equation}
+  \omega \propto \sqrt{ 
+ \frac{ B }{ W V } 
+ },
+\end{equation}
+where $B$ is the bulk modulus.
+Here we again see the decaying phenomenon,
+comparing to simulation of \texttt{inp1}, we see that the oscillation amplitude of
+both 
+\begin{figure}[h]
+  \begin{minipage}[t]{0.45\textwidth}
+    \includegraphics[width=\linewidth]{input3/avec_abc}
+    \subcaption{}
+    \label{fig:input3:avec_abc}
+  \end{minipage}
+  \hfil
+  \begin{minipage}[t]{0.45\textwidth}
+    \includegraphics[width=\linewidth]{input3/t}
+    \subcaption{}
+    \label{fig:input3:t}
+  \end{minipage}
+  \hfil
+  \vfill
+  %\vspace*{0.5cm} % (or whatever vertical separation you prefer)
+  \begin{minipage}[t]{0.45\textwidth}
+    \includegraphics[width=\linewidth]{input3/a}
+    \subcaption{}
+    \label{fig:input3:a}
+  \end{minipage}
+  \hfil
+  \begin{minipage}[t]{0.45\textwidth}
+    \includegraphics[width=\linewidth]{input3/l}
+    \subcaption{}
+    \label{fig:input3:l}
+  \end{minipage}
+  \caption{\texttt{inp3}.}
+  \label{fig:input3}
+\end{figure}
+

@@ -1,4 +1,4 @@
-% !TEX root = report.tex
+% !TEX root = ../report.tex
 
 \subsubsection{\texttt{MOVE} subroutine}
 
@@ -8,7 +8,7 @@ g \dot{ \bm{s} }_i$ for each atom of each type,
 and total atomic potential $U_a = \sum_{i} u_i$ from \texttt{FORCLJ} or \texttt{FORC}
 subroutines.
 When it comes to the lattice contribution, it is the same as \texttt{INIT} subroutine,
-i.e., as $\eqref{eq:calc}$ shows. Then lattice contribution $U_l$, $E_l$, and 
+i.e., as $\eqref{eq:calc}$ shows. Then lattice contribution $U_l$, $E_l$, and
 $\mathscr{E}_l$ can be calculated.
 
 \begin{table}[h]
@@ -24,7 +24,7 @@ $\mathscr{E}_l$ can be calculated.
 		\cmidrule{1-1}\cmidrule{4-4}    \multirow{3}[2]{*}{lattice contribution to total} & potential energy & $U_l$           & \texttt{utl} \\
 		                                                                                  & kinetic energy   & $E_l$           & \texttt{ekl} \\
 		                                                                                  & energy           & $\mathscr{E}_l$ & \texttt{etl} \\
-		\bottomrule                                                                              
+		\bottomrule
 	\end{tabular}
 	\label{tab:move}%
 \end{table}%
