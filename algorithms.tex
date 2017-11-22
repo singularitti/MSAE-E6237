@@ -1,4 +1,4 @@
-% !TEX root = ../report.tex
+% !TEX root = ./report.tex
 
 \section{Some alogrithm for molecular dynamics}
 
@@ -36,7 +36,7 @@ The basic equations are
 		\label{eq:vbeeman}
 	\end{align}
 \end{subequations}
-where $F_n = F(x_n)$ is the force on $n$th step.\cite{dufty1986molecular} This algorithm
+where $F_n = F(x_n)$ is the force on $n$th step(\cite{dufty1986molecular}). This algorithm
 is equivalent to the Verlet algorithm. First consider
 \begin{equation}
 	v_{n-1} = \frac{ 1 }{ h }(x_n - x_{n-1}) - \frac{ 1 }{ 6 } h (4 F_{n-1} - F_{n-2}),

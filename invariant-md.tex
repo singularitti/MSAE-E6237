@@ -1,4 +1,4 @@
-% !TEX root = ../report.tex
+% !TEX root = ./report.tex
 
 \section{Research proposal}
 
@@ -51,12 +51,12 @@ The Hamiltonian is thus
 So the equations of motions are
 \begin{align}
 	\dot{ \bm{\rho} }_i & = \frac{ \partial \mathcal{H} }{ \partial \bm{\pi}_i } =
-	\frac{ \bm{\pi}_i }{ m Q^{\frac{ 2 }{ 3 }} } \thinspace,\\
+	\frac{ \bm{\pi}_i }{ m Q^{\frac{ 2 }{ 3 }} } \thinspace,                          \\
 	\dot{ \bm{\pi} }_i  & = - \frac{ \partial \mathcal{H} }{ \partial \bm{\rho}_i } =
-	- Q^{\frac{ 1 }{ 3 }} \sum_{\substack{j=1\\j\neq i}}
-	\frac{ u' \bm{\rho}_{ij} }{ \lvert \bm{\rho}_{ij} \rvert  } \thinspace,\\
+	- Q^{\frac{ 1 }{ 3 }} \sum_{\substack{j=1                                         \\j\neq i}}
+	\frac{ u' \bm{\rho}_{ij} }{ \lvert \bm{\rho}_{ij} \rvert  } \thinspace,           \\
 	\dot{ Q }           & = \frac{ \partial \mathcal{H} }{ \partial \Pi } =
-	\frac{ \Pi }{ M } \thinspace,\\
+	\frac{ \Pi }{ M } \thinspace,                                                     \\
 	\dot{ \Pi }         & = - \frac{ \partial \mathcal{H} }{ \partial Q } =
 	- \frac{ 1 }{ 3Q } \bigg(
 	- \frac{ 1 }{ m Q^{\frac{ 2 }{ 3 }} }	\sum_{i=1}^{N} \bm{\pi}_i \cdot \bm{\pi}_i
@@ -132,23 +132,25 @@ potential, $W$ is the fictitious mass.
 
 Then the equations of motion are
 \begin{subequations}
-  \label{eq:rpeqm}
+	\label{eq:rpeqm}
 	\begin{align}
 		\ddot{s}_i & = \frac{ 1 }{ m_i } \sum_{j\neq i}
 		\frac{ \phi'(r_{ij}) }{ r_{ij} } (\bm{s}_i - \bm{s}_j) - g^{-1}\dot{g}
-		\dot{ \bm{s} }_i \thinspace, \quad i, j = 1, 2, \ldots, N,\label{eq:rpsdd}\\
+		\dot{ \bm{s} }_i \thinspace, \quad i, j = 1, 2, \ldots, N,\label{eq:rpsdd} \\
 		\ddot{h}   & = \frac{ 1 }{ W } (\Pi - P) \sigma, \label{eq:hdd}
 	\end{align}
 \end{subequations}
 where $\sigma = \{\bm{a}\times \bm{b},
 	\bm{b}\times \bm{c}, \bm{c}\times \bm{a}\}$,
 matrix $\Pi$ is given by
+
 \begin{equation}\label{eq:pim&frr}
 	\Omega \Pi = \sum_{i=1}^{N} m_i \bm{v}_i \bm{v}_i\tran
 	+ \sum_{i=1}^{N} \sum_{i<j} \frac{ \phi'(r_{ij}) }{ r_{ij} }
 	(\bm{r}_i - \bm{r}_j) (\bm{r}_i - \bm{r}_j)\tran,
 \end{equation}
-with $\bm{v}_i = h \bm{s}_i$.
+
+with $\bm{v}_i = h \dot{ \bm{s}_i }$.
 Then Andersen's equations of motion is a special case of
 $\eqref{eq:rpeqm}$,
 where $h = \diag (\Omega^{\frac{ 1 }{ 3 }}, \ldots,
@@ -182,7 +184,7 @@ The equations of motion are
 \begin{align}
 	\ddot{q}_i      & = - \frac{ 1 }{ m_i } \sum_{\substack{i, j=1 \\j\neq i}}^{N}
 	\frac{ \phi'(r_{ij}) }{ r_{ij} }(\bm{q}_i - \bm{q}_j) - d^{-1} \dot{ d }
-	\dot{ \bm{q} }_i \thinspace,\\
+	\dot{ \bm{q} }_i \thinspace,                                   \\
 	\ddot{\epsilon} & = \frac{ \Omega }{ W } (\Pi - P)
 	\big((1+\epsilon)\tran\big)^{-1}.\label{eq:edd}
 \end{align}

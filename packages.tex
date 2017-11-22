@@ -1,4 +1,4 @@
-% !TEX root = ../report.tex
+% !TEX root = ./report.tex
 
 \usepackage[letterpaper, margin=1in]{geometry}
 \usepackage{stix}
@@ -15,7 +15,7 @@
 \usepackage{braket}
 \usepackage[version=4]{mhchem}
 \usepackage[symbol]{footmisc}  % footnote symbol
-\usepackage[superscript]{cite}  % The option superscript to the cite package affects the citations in the text
+%\usepackage[superscript]{cite}  % The option superscript to the cite package affects the citations in the text
 \usepackage[margin=1cm]{caption}  % Limit the figure caption width
 \usepackage{xcolor}
 \usepackage{multirow}
@@ -33,3 +33,14 @@
 \fancyhf{}
 \lhead{\fancyplain{}{\rightmark }}
 \rfoot{\thepage}
+
+\usepackage[
+backend=biber,
+style=authoryear-icomp,
+sortlocale=de_DE,
+natbib=true,
+url=false, 
+doi=true,
+eprint=false
+]{biblatex}
+\addbibresource{thebib.bib}

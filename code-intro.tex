@@ -1,10 +1,10 @@
-% !TEX root = ../report.tex
+% !TEX root = ./report.tex
 
 \section{Molecular dynamics code}
 
 The following part is an introduction on how to use
 Wentzcovitch's code to perform MD simulation. The code is
-based on one of her papers.\cite{Wentzcovitch:1991ka}
+based on one of her papers(\cite{Wentzcovitch:1991ka}).
 
 There are $4$ types of simulations in code,
 denoted as \texttt{md}, \texttt{cd}, \texttt{nd}, \texttt{sd},
@@ -24,26 +24,26 @@ The simulation is done under zero temperature, as stated above.
 in the input file there will be a line labeled by \texttt{(ntype)}, it
 contains a scalar, i.e., number of atom types, so \texttt{mxdtyp} $=1$.
 
-\input{"Code introduction/celq"}
+\input{celq}
 
 \subsection{Setup steps}
 
-\input{"Code introduction/crstl"}
+\input{crstl}
 
-\input{"Code introduction/init"}
+\input{init}
 
-\input{"Code introduction/move"}
+\input{move}
 
-\input{"Code introduction/rdpp"}
+\input{rdpp}
 
-\input{"Code introduction/ranv"}
+\input{ranv}
 
 \subsection{Force calculation}
 
-\input{"Code introduction/forclj"}
+\input{forclj}
 
-\input{"Code introduction/forc"}
+\input{forc}
 
-\input{"Code introduction/updg"}
+\input{updg}
 
-\input{"Code introduction/sigsp"}
+\input{sigsp}
