@@ -4,11 +4,11 @@
 
 The first quantum molecular dynamics (QMD),
 a.k.a., ``\textit{ab initio}'' or ``first principles'' simulation was
-carried out by Car and Parrinello in 1985.\cite{Car:1985ix}
+carried out by Car and Parrinello in 1985 (\cite{Car:1985ix}).
 Their and subsequent work
 have led to a great development on treating real, complex molecules,
 solids and liquids with forces derived by density functional theory
-(DFT).\cite{martin2004electronic} Now we are going to have a look
+(DFT) (\cite{martin2004electronic}). Now we are going to have a look
 on this work.
 
 
@@ -20,7 +20,7 @@ based on $2$ assumptions: the validity of classical mechanics to describe
 ionic motions, and Born--Oppenheimer approximation to separate the
 nuclear and electronic coordinates.
 They invented a new strategy other than the Metropolis Monte Carlo method
-introduced by Kirkpatrick, Gelatt, and Vecchi,\cite{Kirkpatrick:1983zz}
+introduced by Kirkpatrick, Gelatt, and Vecchi, (\cite{Kirkpatrick:1983zz})
 the so-called ``dynamical simulated annealing'' method.
 By this method, they could minimize the energy of electrons and solve
 for the motion of the nuclei simultaneously. This is achieved by introducing
@@ -93,7 +93,7 @@ These equations can be simulated by the Verlet algorithm, that is,
 	\end{align}
 \end{subequations}
 where $h$ is the time step interval. The holonomic constraints are
-handled by a method called SHAKE.\cite{Ryckaert:1977gp}
+handled by a method called SHAKE (\cite{Ryckaert:1977gp}).
 
 At stationary state, all time derivatives are $0$ so that
 $\eqref{eq:cpst}$ leads to
@@ -106,7 +106,7 @@ usual Kohn--Sham hamiltonian matrix
 $H$, i.e., $\Lambda_{ij} = H_{ji}$. Thus the eigenvalues of
 $\Lambda$ coincides with Kohn--Sham eigenvalues.
 And the solution is stationary if and only if the Kohn--Sham
-energy is at a variational minimum(\cite{martin2004electronic}).
+energy is at a variational minimum (\cite{martin2004electronic}).
 This method leads to the possibility to consider real dynamics
 of the nuclei in \textit{ab initio} electronic structure algorithms.
 
