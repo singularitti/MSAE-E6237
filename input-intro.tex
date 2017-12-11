@@ -33,7 +33,7 @@ The \texttt{calc} specifies calculation type of this file, including \texttt{md}
 \texttt{nsc} means the number of cells consist a supercell in each direction of a 3D space.
 \texttt{cmass} is $W$ as mentioned, but it does not have functions for \texttt{md}.
 \texttt{rcut} is the cut-off radius for this molecular dynamics, and the sphere defined by
-\texttt{rcut} must be contained inside the stack of supercells, which is $7=2\times 3+1$ supercells in each direction. We usually choose numbers for \texttt{ncell}, to make 
+\texttt{rcut} must be contained inside the stack of supercells, which is $7=2\times 3+1$ supercells in each direction. We usually choose numbers for \texttt{ncell}, to make
 \texttt{alatt} times \texttt{ncell} greatly larger than \texttt{rcut}, for the supercells are
 oscillating their volume in this molecular dynamics.
 Here we have $4=4 \times 1^3$ atoms inside one supercell.
@@ -43,19 +43,19 @@ And \texttt{dt} times \texttt{nstep} is the total simulation time in Rydberg uni
 \SI{4.8378e-17}{\second} per unit time.
 
 \begin{figure}[H]
-  \begin{minipage}{0.48\textwidth}
-    \centering
-    \input{Tikz/FCC1}
-    \caption{A FCC conventional unit cell of \ce{Ar} for \texttt{inp1}.}
-    \label{fig:fcc1}
-  \end{minipage}
+\begin{minipage}{0.48\textwidth}
+	\centering
+	\input{Tikz/FCC1}
+	\caption{A FCC conventional unit cell of \ce{Ar} for \texttt{inp1}.}
+	\label{fig:fcc1}
+\end{minipage}
 \hfill
-  \begin {minipage}{0.48\textwidth}
-  \centering
-  \input{Tikz/FCC3}
-  \caption{A FCC primitive unit cell of \ce{Ar} for \texttt{inp3}, with
-  vertices of the cell filled in red.}
-  \label{fig:fcc3}
+\begin {minipage}{0.48\textwidth}
+\centering
+\input{Tikz/FCC3}
+\caption{A FCC primitive unit cell of \ce{Ar} for \texttt{inp3}, with
+	vertices of the cell filled in red.}
+\label{fig:fcc3}
 \end{minipage}
 \end{figure}
 
@@ -85,62 +85,131 @@ s       n                         (ic,iio)
 We will use this file as an example for comparison.
 The \texttt{press} is external pressure $P$, but in unit of \si{\mega\bar}.
 
+Here we are going to use $h = 75$ Rydberg unit and $2000$ time steps. This is because, different \texttt{dt} could result in different decaying rates.
+We run this file with $4$ different \texttt{dt}, $150$, $200$, $300$ and $400$
+Rydberg unit respectively.
+But we simulate both $600000$ Rydberg time unit. From Fig. \ref{fig:inp1:mini:subfig:b} we can see a noticeable
+decreasing in total energy, but for Fig. \ref{fig:inp1:mini:subfig:a} this is less distinguishable. For Fig. \ref{fig:inp1:mini:subfig:c} and Fig. \ref{fig:inp1:mini:subfig:d}
+this is even worse, the total energy decays even faster. This can be understood since in
+Beeman's algorithm we assume the length of each time step $h$ is a small quantity,
+for we are using Taylor expansion implicitly. So when $h$ is too large, numerical errors
+could be apparent.
 
-We run this file again, but with $2$ different \texttt{dt}, one is $150$, one is $200$.
-We simulate both $600000$ Rydberg time unit. From Fig. \ref{fig:inp1:mini:subfig:a} we can see a noticeable
-decreasing in total energy, but for Fig. \ref{fig:inp1:mini:subfig:b} this is less distinguishable. 
 \begin{figure}[h]
-  \subfigure[$3000$ time steps, with each time step to be $200$ Rydberg unit.]{
-    \label{fig:inp1:mini:subfig:a}   %% label for first subfigure 
+	\centering
+	\subfigure[$4000$ time steps, with each time step to be $150$ Rydberg unit.]{
+		\label{fig:inp1:mini:subfig:a}   %% label for second subfigure 
+		\begin{minipage}[b]{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{4000_150_100_4}
+		\end{minipage}}
+	\hfill
+	\subfigure[$3000$ time steps, with each time step to be $200$ Rydberg unit.]{
+		\label{fig:inp1:mini:subfig:b}   %% label for first subfigure 
+		\begin{minipage}[b]{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{3000_200_100_9}
+		\end{minipage}}
+	\subfigure[$2000$ time steps, with each time step to be $300$ Rydberg unit.]{
+		\label{fig:inp1:mini:subfig:c}   %% label for third subfigure 
+		\begin{minipage}[b]{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{2000_300_100_0}
+		\end{minipage}}
+	\hfill
+	\subfigure[$1500$ time steps, with each time step to be $400$ Rydberg unit.]{
+		\label{fig:inp1:mini:subfig:d}   %% label for fourth subfigure 
+		\begin{minipage}[b]{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{1500_400_100_2}
+		\end{minipage}}
+	\caption{Wentzcovitch MD for FCC \ce{Ar} at \SI{0}{\kelvin} with $4$ different \texttt{dt} but the same total simulation time.}
+	\label{fig:inp1}   %% label for entire figure 
+\end{figure}
+
+So for easier observation $h = 75$ Rydberg unit and $2000$ time steps are good choices,
+see Fig. \ref{fig:inp1run} for references.
+
+\begin{figure}[h]
+	\subfigure[Energies of the cell and atoms versus time.]{
+		\label{fig:inp1run:mini:subfig:a}   %% label for first subfigure 
+		\begin{minipage}[b]{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{2000_75_100_8}
+		\end{minipage}}
+	\hfill
+	\subfigure[Cell vectors oscillation versus time, $a=b=c$ for this is a cubic crystal.]{
+		\label{fig:inp1run:mini:subfig:b}   %% label for second subfigure 
+		\begin{minipage}[b]{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{2000_75_100_2_avec}
+		\end{minipage}}
+	\caption{Wentzcovitch MD for FCC \ce{Ar} at \SI{0}{\kelvin}, with \texttt{dt}$=75$,
+		\texttt{nstep}$=2000$.}
+	\label{fig:inp1run}   %% label for entire figure 
+\end{figure}
+
+From Fig. \ref{fig:inp1run:mini:subfig:b} we can approximate assume that the stable
+lattice parameter is around \SI{9.9}{\bohr}, where vibration happens back and forth.
+But the code also provide a \texttt{nm} method by adding a damping to let us compute energy-minimized structure quickly. So we keep the fictitious mass fixed,
+and then run the structure minimization algorithm. The stabilized structure also has a
+lattice parameter around \SI{9.9}{\bohr}, which strengthen the credibility of our MD result,
+see Fig. \ref{fig:inp5} for references.
+
+\begin{figure}[h]
+  \subfigure[Energies for structure minimization versus time.]{
+    \label{fig:inp5:mini:subfig:a}   %% label for first subfigure 
     \begin{minipage}[b]{0.48\textwidth}
       \centering
-      \includegraphics[width=\linewidth]{3000_200_100_9}
+      \includegraphics[width=\linewidth]{100_500_2010_9}
   \end{minipage}}
   \hfill
-  \subfigure[$4000$ time steps, with each time step to be $150$ Rydberg unit.]{
-    \label{fig:inp1:mini:subfig:b}   %% label for second subfigure 
+  \subfigure[Lattice parameters for structure minimization versus time, the final result is around \SI{9.9}{\bohr}.]{
+    \label{fig:inp5:mini:subfig:b}   %% label for second subfigure 
     \begin{minipage}[b]{0.48\textwidth}
       \centering 
-      \includegraphics[width=\linewidth]{4000_150_100_4} 
+      \includegraphics[width=\linewidth]{100_500_2010_3_avec} 
   \end{minipage}}
-  \caption{FCC \ce{Ar} at \SI{0}{\kelvin} with $2$ different \texttt{dt} but the same total time.}
-  \label{fig:inp1}   %% label for entire figure 
+  \caption{Wentzcovitch's structure minimization algorithm for FCC \ce{Ar}.}
+  \label{fig:inp5}   %% label for entire figure 
 \end{figure}
+
 
 First we run the code using Andersen's molecular dynamics, to find the oscillation frequency of atoms. This is done at \SI{0}{\kelvin}, so we have to shift the atoms a little from their equilibrium
 positions, or else we will not observe an oscillation frequency, like in Fig. \ref{fig:andersen0:mini:subfig:a}.
 For example, in Fig. \ref{fig:andersen0:mini:subfig:b} we can approximately assume that
 one period of oscillation is $110$ time steps. We will use this quantity later.
 \begin{figure}[h]
-  \subfigure[Every atom sits in exactly their equilibrium coordinates.]{
-    \label{fig:andersen0:mini:subfig:a}   %% label for first subfigure 
-    \begin{minipage}[b]{0.48\textwidth}
-      \centering
-      \includegraphics[width=\linewidth]{1000_150_1100_2.pdf}
-  \end{minipage}}
-  \hfill
-  \subfigure[One of the atom shifts a little upon its equilibrium coordinate.]{
-    \label{fig:andersen0:mini:subfig:b}   %% label for second subfigure 
-    \begin{minipage}[b]{0.48\textwidth}
-      \centering 
-      \includegraphics[width=\linewidth]{1000_150_1100-3.pdf} 
-  \end{minipage}}
-  \caption{A conventional FCC cell of \ce{Ar} at \SI{0}{\kelvin}}
-  \label{fig:andersen0}   %% label for entire figure 
+	\centering
+	\subfigure[Every atom sits in exactly their equilibrium coordinates.]{
+		\label{fig:andersen0:mini:subfig:a}   %% label for first subfigure 
+		\begin{minipage}[b]{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{1000_150_1100_2.pdf}
+		\end{minipage}}
+	\hfill
+	\subfigure[One of the atom shifts a little upon its equilibrium coordinate.]{
+		\label{fig:andersen0:mini:subfig:b}   %% label for second subfigure 
+		\begin{minipage}[b]{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{1000_150_1100-3.pdf}
+		\end{minipage}}
+	\caption{A conventional FCC cell of \ce{Ar} at \SI{0}{\kelvin}}
+	\label{fig:andersen0}   %% label for entire figure 
 \end{figure}
 
 
-If we keep all other simulation parameters the same, but change
-the size of time steps to $100$ in \texttt{inp2} (\texttt{inp1} is $200$) in Rydberg-like units,
-i.e., decrease step size by a half, the results will be shown in Fig. \ref{fig:input2}.
-There is not much differences from the first results. But looking in detail,
-we can see that the amplitude of atomic potential in Fig. \ref{fig:input2:a} is not decaying
-and the amplitude of lattice kinetic energy in Fig. \ref{fig:input2:l} is also not decaying
-comparing to the corresponding figures Fig. \ref{fig:input1:a} and Fig. \ref{fig:input1:l},
-respectively. And also, the amplitude of lattice parameter is not decaying in
-Fig. \ref{fig:input2:avec} rather than in \ref{fig:input1:avec}. We should also be aware of
-that the oscillation frequency of energies, including kinetic and potential, do not change
-as the time step is decreased to $\frac{ 1 }{ 2 }$, we will discuss later on this phenomenon.
+%If we keep all other simulation parameters the same, but change
+%the size of time steps to $100$ in \texttt{inp2} (\texttt{inp1} is $200$) in Rydberg-like units,
+%i.e., decrease step size by a half, the results will be shown in Fig. \ref{fig:input2}.
+%There is not much differences from the first results. But looking in detail,
+%we can see that the amplitude of atomic potential in Fig. \ref{fig:input2:a} is not decaying
+%and the amplitude of lattice kinetic energy in Fig. \ref{fig:input2:l} is also not decaying
+%comparing to the corresponding figures Fig. \ref{fig:input1:a} and Fig. \ref{fig:input1:l},
+%respectively. And also, the amplitude of lattice parameter is not decaying in
+%Fig. \ref{fig:input2:avec} rather than in \ref{fig:input1:avec}. We should also be aware of
+%that the oscillation frequency of energies, including kinetic and potential, do not change
+%as the time step is decreased to $\frac{ 1 }{ 2 }$, we will discuss later on this phenomenon.
 %\begin{figure}[H]
 %  \begin{minipage}[t]{0.45\textwidth}
 %    \includegraphics[width=\linewidth]{input2/avec_abc}
@@ -172,18 +241,18 @@ as the time step is decreased to $\frac{ 1 }{ 2 }$, we will discuss later on thi
 %\end{figure}
 
 For \texttt{inp3}, now we shrink the unit cell size to $\frac{ 1 }{ 4 }$ of the
-\texttt{inp1} and \texttt{inp2}, i.e., there is only $1$ \ce{Ar} atom in the
-cell. Also, the time step is $100$, the same as \texttt{inp2}.
+\texttt{inp1}, i.e., there is only $1$ \ce{Ar} atom in the cell. 
+Also, the time step is $100$, the same as \texttt{inp2}.
 See Fig. \ref{fig:fcc3} for reference.
-Now let's see what will happen to the simulation result. see Fig. \ref{fig:input3}
-for reference.
+Now let's see what will happen to the simulation result. 
+
 However, this time, the oscillation frequency of energies and lattice parameters
 both increase by a factor of $2$, this is not astonishing because from
-$\eqref{eq:hdd}$ we know that
+\eqref{eq:hdd} we know that
 \begin{equation}
-  \omega \propto \sqrt{
- \frac{ B }{ W V }
- },
+	\omega \propto \sqrt{
+		\frac{ B }{ W V }
+	},
 \end{equation}
 where $B$ is the bulk modulus.
 Here we again see the decaying phenomenon,
