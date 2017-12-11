@@ -1,12 +1,12 @@
 % !TEX root = ./report.tex
 
-\section{Some alogrithm for molecular dynamics}
+\section{Integration algorithms for molecular dynamics}
 
 Suppose we have a general second-order ODE, of the form
 \begin{equation}
   x''(t) = F(x),
 \end{equation}
-and we want to solve it. Two major types of methods are
+and we want to solve it. The force $F$ can be given by differentiating Lagrangian or Hamiltonian, as we do in \eqref{eq:rpeqm}, etc. Two major types of methods are
 available: \textit{open} and \textit{closed} methods.
 
 Closed methods, or \textit{predictor-corrector} methods, firstly predict a value

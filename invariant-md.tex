@@ -23,7 +23,7 @@ a Lagrangian
 \end{equation}
 where $\bm{\rho}_i = \bm{r}_i / V ^{\frac{ 1 }{ 3 }}$, $i=1$, $2$, $\ldots$,~$N$,
 a dimensionless vector,
-is called scaled coordinates of $i$th atom, with $m$ the atomic mass. 
+is called reduced coordinates of $i$th atom, with $m$ the atomic mass.
 $Q^{\frac{ 1 }{ 3 }}\rho_{ij} = r_{ij}$ is the nearest distance between
 $i$th and $j$th atoms.
 Here $\alpha$ and $M$ are constants,
@@ -68,34 +68,17 @@ So the equations of motions are
 	3 \alpha Q
 	\bigg) \thinspace.
 \end{align}
-With these equations, the trajectory of the scaled system are given by
+With these equations, the trajectory of the reduced system are given by
 $\bm{\rho}(t)$, $\bm{\pi}(t)$, $Q(t)$, and $\Pi(t)$.
 
-Use this trajectory, any function's time average are given by
-\begin{equation}
-	\overline{G} = \lim_{T \rightarrow \infty} \frac{ 1 }{ T } \int_{0}^{T}  \, dt
-	G(\bm{\rho}(t), \bm{\pi}(t), Q(t), \Pi(t)),
+The reduced system has a correspondence to the original system:
+\begin{equation}\label{eq:corres}
+	\begin{split}
+		V        & = Q,                                           \\
+		\bm{r}_i & = Q^{\frac{ 1 }{ 3 }} \bm{\rho}_i \thinspace,  \\
+		\bm{p}_i & = \bm{\pi}_i / Q^{\frac{ 1 }{ 3 }} \thinspace,
+	\end{split}
 \end{equation}
-and this can be given by the average of an NE ensemble. That is,
-\begin{multline}
-	G_{NE} (N, E) = \frac{ 1 }{ N! \Omega(N,E) } \int d\bm{\rho} \int d\bm{\pi}
-	\int dQ \int d\Pi \\
-	\delta \big( \mathcal{H}(\bm{\rho}, \bm{\pi}, Q, \Pi)
-	- E \big) G(\bm{\rho}(t), \bm{\pi}(t), Q(t), \Pi(t)),
-\end{multline}
-where
-\begin{equation}
-	\Omega(N, E) = \frac{ 1 }{ N! }  \int d\bm{\rho} \int d\bm{\pi}
-	\int dQ \int d\Pi \, \delta \big( \mathcal{H}(\bm{\rho}, \bm{\pi}, Q, \Pi)
-	- E \big).
-\end{equation}
-
-The scaled system has a correspondence to the original system:
-\begin{align}\label{eq:corres}
-	V        & = Q,                                           \\
-	\bm{r}_i & = Q^{\frac{ 1 }{ 3 }} \bm{\rho}_i \thinspace,  \\
-	\bm{p}_i & = \bm{\pi}_i / Q^{\frac{ 1 }{ 3 }} \thinspace,
-\end{align}
 to the phase space of a system spanned by
 $\bm{r}_i, i=1$,~$\ldots$,~$N$ and
 $\bm{p}_i, i=1$,~$\ldots$,~$N$,
@@ -103,12 +86,79 @@ where $\bm{r}_i$ is the particle's coordinate, $\bm{p}_i$ is its momentum.
 Thus the trajectory
 $\bm{\rho}(t)$, $\bm{\pi}(t)$, $Q(t)$, and $\Pi(t)$ have its
 correspondence $V(t)$, $\bm{r}_i(t)$ and $\bm{p}_i(t)$ by
-$\eqref{eq:corres}$.
-Since the time average $\overline{F}$ of any function $F$
-derived by this trajectory is the same as an
-isoentahlpic-isobaric ensemble average of $F_{NPH}$, and
-$\overline{G} = \overline{F}$, thus we get the NPH ensemble average.
-The ensemble pressure $P$ is $\alpha$ in $\eqref{eq:andersenlagrang}$ indeed.
+\eqref{eq:corres}.
+
+Now suppose we have an function $\mathscr{G} = \mathscr{G}(\bm{r}, \bm{p}, V)$,
+and we want to know its time-average
+\begin{equation}
+	\overline{\mathscr{G}} =
+	\lim_{T \rightarrow \infty} \frac{ 1 }{ T } \int_{0}^{T}  dt\,
+	\mathscr{G}(\bm{r}(t), \bm{p}(t), V(t)).
+\end{equation}
+
+Since we have already found a one-to-one correspondence
+from $\mathscr{G}$ to $G$ by
+\eqref{eq:corres}, so they must have the same time-average
+\begin{equation}\label{eq:bbgg}
+	\overline{\mathscr{G}} = \overline{G}.
+\end{equation}
+$\overline{G}$ is easy to solve if we know
+that using the trajectory
+$(\bm{\rho}(t)$, $\bm{\pi}(t)$, $Q(t)$, and $\Pi(t))$,
+any function's time average is given by
+\begin{equation}
+	\overline{G} = \lim_{T \rightarrow \infty} \frac{ 1 }{ T } \int_{0}^{T}  dt \,
+	G(\bm{\rho}(t), \bm{\pi}(t), Q(t), \Pi(t)),
+\end{equation}
+and this is equal to the average of an NE ensemble,
+\begin{equation}\label{eq:gbgne}
+	\overline{G} = G_{NE},
+\end{equation}
+where
+\begin{multline}
+	G_{NE} (N, E) = \frac{ 1 }{ N! \Omega(N,E) } \int d\bm{\rho} \int d\bm{\pi}
+	\int dQ \int d\Pi \\
+	\delta \big( \mathcal{H}(\bm{\rho}, \bm{\pi}, Q, \Pi)
+	- E \big) G(\bm{\rho}(t), \bm{\pi}(t), Q(t), \Pi(t)),
+\end{multline}
+with
+\begin{equation}
+	\Omega(N, E) = \frac{ 1 }{ N! }  \int d\bm{\rho} \int d\bm{\pi}
+	\int dQ \int d\Pi \, \delta \big( \mathcal{H}(\bm{\rho}, \bm{\pi}, Q, \Pi)
+	- E \big).
+\end{equation}
+Here we do not specify $V$ (or $Q$ here) in $G_{NE}$ because in this reduced system
+$(\bm{\rho}(t), \bm{\pi}(t), Q(t), \Pi(t))$, $V$ is always $1$.
+
+Thus from \eqref{eq:bbgg} and \eqref{eq:gbgne}, we have
+\begin{equation}\label{eq:ggne}
+	\overline{\mathscr{G}} = G_{NE},
+\end{equation}
+so what is $G_{NE}$ again?
+It is not hard to find that
+\begin{equation}\label{eq:gnegnph}
+	G_{NE} = \mathscr{G}_{NPH}(N, \alpha, H),
+\end{equation}
+where $_{NPH}$ means take the $NPH$ ensemble average, defined as
+\begin{equation}
+	\mathscr{G}_{NPH} (N, P, H) = \frac{ 1 }{ N!\Omega(N, P, H) }
+	\int_{0}^{\infty} dV \int_{V} d\bm{r} \int d\bm{p}\,
+	\delta(\mathcal{H}_{\bm{r}, \bm{p}, V} + P V - H)
+	\mathscr{G}(\bm{r}, \bm{p}, V),
+\end{equation}
+where
+\begin{equation}
+	\Omega (N, P, H) = \frac{ 1 }{ N! }
+	\int_{0}^{\infty} dV \int_{V} d\bm{r} \int d\bm{p}\,
+	\delta(\mathcal{H}_{\bm{r}, \bm{p}, V} + P V - H) .
+\end{equation}
+
+So the final conclusion, by combining \eqref{eq:ggne} and \eqref{eq:gnegnph},
+\begin{equation}
+	\bar{\mathscr{G}} = \mathscr{G}_{NPH}(N, \alpha, H).
+\end{equation}
+Enthalpy $H$ for the ensemble is the energy of the trajectory of the reduced system,
+minus the time average kinetic energy associated with the motion of $Q$.
 
 
 \subsubsection{Rahman--Parrinello approach}
@@ -121,10 +171,12 @@ If the MD cell edges are $\bm{a}$, $\bm{b}$
 and $\bm{c}$, which are time dependent. Stack them to form a
 matrix $h = \{ \bm{a}, \bm{b}, \bm{c} \}$, and the volume of a cell
 is then $\Omega = \bm{a} \cdot \bm{b} \times \bm{c}$, the metric
-tensor is $g = h\tran h$. Let $\bm{r}_i = \xi_i \bm{a} + \eta_i \bm{b}
+tensor is $g = h\tran h$. Let atomic coordinate be
+$\bm{r}_i = \xi_i \bm{a} + \eta_i \bm{b}
 	+ \zeta_i \bm{c} = h \bm{s}_i$, where $\bm{s}_i$ store its coordinates
-$\xi_i$, $\eta_i$, and $\zeta_i$, i.e., reduced coordinates mentioned below.
-Then they introduced a Lagrangian
+$\xi_i$, $\eta_i$, and $\zeta_i$, i.e., reduced coordinates mentioned below (thus
+$\xi$, $\eta$ and $\zeta$ all range from $0$ to $1$).
+Then they introduced a Lagrangian, again for a periodic boundary condition,
 \begin{equation}\label{eq:rplag}
 	\mathcal{L} = \frac{ 1 }{ 2 } \sum_{i=1}^{N} m_i \dot{ \bm{s} }_i \tran
 	g \dot{ \bm{s} }_i - \sum_{i=1}^{N} \sum_{i<j} \phi (r_{ij}) +
@@ -147,13 +199,11 @@ Then the equations of motion are
 where $\sigma = \{\bm{a}\times \bm{b},
 	\bm{b}\times \bm{c}, \bm{c}\times \bm{a}\}$,
 matrix $\Pi$ is given by
-
 \begin{equation}\label{eq:pim&frr}
 	\Omega \Pi = \sum_{i=1}^{N} m_i \bm{v}_i \bm{v}_i\tran
 	+ \sum_{i=1}^{N} \sum_{i<j} \frac{ \phi'(r_{ij}) }{ r_{ij} }
 	(\bm{r}_i - \bm{r}_j) (\bm{r}_i - \bm{r}_j)\tran,
 \end{equation}
-
 with $\bm{v}_i = h \dot{ \bm{s}_i }$.
 Then Andersen's equations of motion is a special case of
 $\eqref{eq:rpeqm}$,
@@ -177,21 +227,23 @@ the nominal value of $K_L$, and the resulted forces and trajectories
 will be dependent on the choice of $h$. Then she proposed a new
 Lagrangian
 \begin{equation}\label{eq:wenzlag}
-	\mathcal{L} = \sum_{i=1}^{N} \dot{ \bm{q} }_i\tran d \dot{ \bm{q} }_i
-	- \sum_{i=1}^{N} \sum_{i<j} \phi(r_{ij}) + \frac{ W }{ 2 }
+	\mathcal{L} = \sum_{i=1}^{N} \frac{ m_i }{ 2 }\dot{ \bm{q} }_i\tran d \dot{ \bm{q} }_i
+	- \sum_{i=1}^{N} \sum_{i<j}^{N} \phi(r_{ij}) + \frac{ W }{ 2 }
 	\Tr \big( \dot{ \epsilon } \dot{ \epsilon }\tran \big) - P \Omega,
 \end{equation}
 where $\epsilon$ is the strain, $\bm{q}_i$ is the defined as
 $\bm{r}_i = (1+\epsilon) \bm{q}_i$, thus $d = (1 + \epsilon)\tran
 	(1+\epsilon)$.
 The equations of motion are
-\begin{align}
-	\ddot{q}_i      & = - \frac{ 1 }{ m_i } \sum_{\substack{i, j=1 \\j\neq i}}^{N}
-	\frac{ \phi'(r_{ij}) }{ r_{ij} }(\bm{q}_i - \bm{q}_j) - d^{-1} \dot{ d }
-	\dot{ \bm{q} }_i \thinspace,                                   \\
-	\ddot{\epsilon} & = \frac{ \Omega }{ W } (\Pi - P)
-	\big((1+\epsilon)\tran\big)^{-1}.\label{eq:edd}
-\end{align}
+\begin{subequations}
+	\begin{align}
+		\ddot{q}_i      & = - \frac{ 1 }{ m_i } \sum_{\substack{i, j=1 \\j\neq i}}^{N}
+		\frac{ \phi'(r_{ij}) }{ r_{ij} }(\bm{q}_i - \bm{q}_j) - d^{-1} \dot{ d }
+		\dot{ \bm{q} }_i \thinspace,                                   \\
+		\ddot{\epsilon} & = \frac{ \Omega }{ W } (\Pi - P)
+		\big((1+\epsilon)\tran\big)^{-1}.\label{eq:edd}
+	\end{align}
+\end{subequations}
 An equivalent form of $\eqref{eq:wenzlag}$ is
 \begin{equation}
 	\mathcal{L} = \frac{ 1 }{ 2 } \sum_{i=1}^{N} m_i \dot{ \bm{s} }_i \tran
@@ -225,3 +277,9 @@ She then performed MD simulations using $\eqref{eq:rplag}$ and
 $\eqref{eq:wenzlag}$, as well as the modified Lagrangian under zero
 temperature to compare. Her method eliminated the symmetry breaking
 introduced by Rahman--Parrinello non-invariant fictitious part of the dynamics.
+
+In summary, Andersen's approach allows us to do molecular dynamics with constant
+pressure (variable cell volume) and cell shape. Rahman--Parrinello approach allows us to change the cell shape
+and volume. Wentzcovitch found that Rahman--Parrinello's Lagrangian is dependent
+on the choice of cell edges, so she extended this to a method independent on
+the cell edges' choice, which simplified the calculation procedure.
