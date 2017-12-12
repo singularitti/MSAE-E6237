@@ -1,75 +1,82 @@
 % !TEX root = ./report.tex
 
 \section{Integration algorithms for molecular dynamics}
+\label{sec:open}
 
 Suppose we have a general second-order ODE, of the form
 \begin{equation}
-  x''(t) = F(x),
+	x''(t) = F(x),
 \end{equation}
 and we want to solve it. The force $F$ can be given by differentiating Lagrangian or Hamiltonian, as we do in \eqref{eq:rpeqm}, etc. Two major types of methods are
 available: \textit{open} and \textit{closed} methods.
 
 Closed methods, or \textit{predictor-corrector} methods, firstly predict a value
-$x_{n+1}$ with a predicting formula and then use $F(x_{n+1})$ to get a the $x_{n+1}$
-for next time step. Closed methods with only one force evaluation, which is acceptable in time-step-integration,
+$x_{n}'$ with a predicting formula and then use $F\big(x_{n}'\big)$ to get the $x_{n+1}$
+for next time step. Closed methods with only one force evaluation, acceptable in time-step-integration,
 are often called \textit{Gear} algorithm.
 
 Open methods, or \textit{predictor} methods predict $x_{n+1}$ only depend on all
-information we have no further than $n$th step. That is, there is no corrector between
-$x_{n}$ and $x_{n+1}$.
+information we have no further than $n$th step. That is, there is no corrector $x_n'$ between
+$x_{n}$ and $x_{n+1}$. In the following text some open methods will be introduced since
+they are often used in molecular dynamics (MD).
 
 The simplest  open method to solve the ODE numerically is Euler's method:
-\begin{align}
-x_{n+1} &= x_n + h v_n + \frac{ 1 }{ 2 } h^2 F(x_n),\\
-v_{n+1} &= v_n + h F(x_n),
-\end{align}
-where $h$ is the length of a time step. We are already familiar with this method
-since middle school.
+\begin{subequations}
+	\begin{align}
+		x_{n+1} & = x_n + h v_n + \frac{ 1 }{ 2 } h^2 F(x_n), \\
+		v_{n+1} & = v_n + h F(x_n),
+	\end{align}
+\end{subequations}
+where $h$ is the length of each time step. We are already familiar with this method.
 
-The Verlet algorithm, which is open, starts from the basic assumption
+The Verlet algorithm, another open method, starts from the basic equation
 \begin{equation}\label{eq:verlet}
 	\frac{ x_{n+1} + x_{n-1} - 2 x_n }{ h^2 } = F(x_n),
 \end{equation}
 which is, the second-order central difference method.
 If we write $x_{n+1}$ and $x_{n-1}$ as
 \begin{align}
- x_{n+1} &= x_n + h v_n + \frac{ 1 }{ 2 } h^2 x_n'' + \frac{ 1 }{ 6 } h^3 x_n''' + \mathcal{O}(h^4),\\
- x_{n-1} &= x_n - h v_n + \frac{ 1 }{ 2 } h^2 x_n'' - \frac{ 1 }{ 6 } h^3 x_n''' + \mathcal{O}(h^4),
+	x_{n+1} & = x_n + h v_n + \frac{ 1 }{ 2 } h^2 x_n'' + \frac{ 1 }{ 6 } h^3 x_n''' + \mathcal{O}(h^4), \\
+	x_{n-1} & = x_n - h v_n + \frac{ 1 }{ 2 } h^2 x_n'' - \frac{ 1 }{ 6 } h^3 x_n''' + \mathcal{O}(h^4),
 \end{align}
 thus up to third order, we have
 \begin{equation}\label{eq:vverlet}
- \frac{x_{n+1} - x_{n-1}}{2h} =  v_n.
+	\frac{x_{n+1} - x_{n-1}}{2h} =  v_n.
 \end{equation}
-So combine \eqref{eq:vverlet} and \eqref{eq:verlet} we have
+So combine \eqref{eq:vverlet} and \eqref{eq:verlet} we obtain
 \begin{equation}\label{eq:xverlet}
-  x_{n+1} = x_{n} + h v_{n} + \frac{ 1 }{ 2 } h^2 F(x_n),
+	x_{n+1} = x_{n} + h v_{n} + \frac{ 1 }{ 2 } h^2 F(x_n),
 \end{equation}
-we can see that this falls back to Euler's method. \eqref{eq:vverlet} and \eqref{eq:xverlet}
-defines Verlet algorithm.
+we can see that this falls back to Euler's method. Equations
+\eqref{eq:vverlet} and \eqref{eq:xverlet} defines the Verlet algorithm.
 
-The leap-frog algorithm, usually defined as
-\begin{align}
-x_{n+1} &= x_n + h v_{n+1/2}, \label{eq:lfx}\\
-v_{n+1/2} &= v_{n-1/2} + h F(x_n).\label{eq:lfv}
-\end{align}
-The derivation is still from Taylor expansion:
+The leap-frog algorithm is usually described as
+\begin{subequations}
+	\begin{align}
+		x_{n+1}   & = x_n + h v_{n+1/2}, \label{eq:lfx}   \\
+		v_{n+1/2} & = v_{n-1/2} + h F(x_n).\label{eq:lfv}
+	\end{align}
+\end{subequations}
+The derivation is still from Taylor expansion. First,
 \begin{equation}
-  x_{n+1} = x_{n} + h \bigg(v_n + \frac{ h }{ 2 } x_n'' \bigg) + \mathcal{O}(h^3),
+	x_{n+1} = x_{n} + h \bigg(v_n + \frac{ h }{ 2 } x_n'' \bigg) + \mathcal{O}(h^3),
 \end{equation}
 thus up to third order, we have
 \begin{equation}
-v_{n + 1/2} = v_n + \frac{ h }{ 2 } x_n'' = v_n + \frac{ h }{ 2 } F(x_n),
+	v_{n + 1/2} = v_n + \frac{ h }{ 2 } x_n'' = v_n + \frac{ h }{ 2 } F(x_n),
 \end{equation}
 thus \eqref{eq:lfx} is derived.
 Similarly $v_{n-1/2} = v_n - \frac{ h }{ 2 } F(x_n)$, so \eqref{eq:lfv} is derived.
-If assume $v_n = \frac{ 1 }{ 2 }(v_{n-1/2} + v_{n+1/2})$, thus
+If we assume $v_n = \frac{ 1 }{ 2 }(v_{n-1/2} + v_{n+1/2})$, thus
 \begin{equation}\label{eq:lfv_n}
-v_n = \frac{ 1 }{ 2h }(x_{n+1} - \cancel{x_n} + \cancel{x_n} - x_{n-1}),
+	v_n = \frac{ 1 }{ 2h }(x_{n+1} - \cancel{x_n} + \cancel{x_n} - x_{n-1}),
 \end{equation}
 so \eqref{eq:lfx} and \eqref{eq:lfv_n} are equivalent to \eqref{eq:vverlet} and \eqref{eq:xverlet}.
 
-Beeman's algorithm, which is used in the VCSMD code, is also an open method.
-The basic equations are
+One of the most important is the Beeman algorithm, which is used in the
+variable cell shape molecular dynamics (VCSMD) code.
+Its basic equations are
+\begin{subequations}\label{eq:beeman}
 	\begin{align}
 		x_{n+1} & = x_n + h v_n + \frac{ 2 }{ 3 } h^2 F_n - \frac{ 1 }{ 6 } h^2 F_{n-1} \thinspace,
 		\label{eq:xbeeman}\\
@@ -77,8 +84,9 @@ The basic equations are
 		\thinspace,
 		\label{eq:vbeeman}
 	\end{align}
-where $F_n = F(x_n)$ is shorthand of the force on $n$th step (\cite{dufty1986molecular}). This algorithm
-is equivalent to the Verlet algorithm. First consider
+\end{subequations}
+where $F_n = F(x_n)$ is a shorthand of the force on $n$th step (\cite{dufty1986molecular}). This algorithm
+is equivalent to the Verlet algorithm. Let's prove it. First consider
 \begin{equation}
 	v_{n-1} = \frac{ 1 }{ h }(x_n - x_{n-1}) - \frac{ 1 }{ 6 } h (4 F_{n-1} - F_{n-2}),
 \end{equation}
@@ -87,11 +95,11 @@ by transforming $\eqref{eq:xbeeman}$, then use $\eqref{eq:vbeeman}$ we derive
 	v_n = \frac{ 1 }{ h }(x_n - x_{n-1}) + \frac{ 1 }{ 6 } h F_{n-2} + \frac{ 5 }{ 6 } h (F_n - F_{n-1})
 	+ \frac{ 1 }{ 3 }h F_{n+1} \thinspace,
 \end{equation}
-substitute $\eqref{eq:vnverlet}$ back into $\eqref{eq:xbeeman}$ we recover $\eqref{eq:verlet}$.
-Beeman algorithm is more complex and memory-consuming, so it is less likely to be used in
+substitute $\eqref{eq:vnverlet}$ back into $\eqref{eq:xbeeman}$ then $\eqref{eq:verlet}$ is recovered.
+Beeman algorithm is more complex and memory-consuming, usually it is less likely to be used in
 real program.
 
 Above we have proved that the Verlet, leap-frog, and Beeman algorithm are equivalent,
-so they produce same trajectory.
+so they are expected to produce the same trajectory.
 These methods are time-reversible, so they essentially have no drift. They are often
 served as integrators in molecular dynamics, about which we will talk later.

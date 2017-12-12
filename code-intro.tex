@@ -5,21 +5,26 @@
 
 The following part is an introduction on how to use
 Wentzcovitch's code to perform MD simulation. The code is
-based on one of her papers (\cite{Wentzcovitch:1991ka}).
+based on one of her papers (\cite{Wentzcovitch:1991ka}), hanged at
+\url{http://vlab.msi.umn.edu/events/download/Program.zip}.
 
 There are $4$ types of simulations in code,
 denoted as \texttt{md}, \texttt{cd}, \texttt{nd}, \texttt{sd},
 respectively. The first one means ``molecular dynamics'',
-based on Andersen's paper, (\cite{Andersen:1980ew})
+based on Andersen's paper (\cite{Andersen:1980ew}),
 the second one means ``cell dynamics'', based on
-Rahman–Parrinello approach, (\cite{Parrinello:1980kx})
-the main equations are $\eqref{eq:rpeqm}$.
+Rahman–Parrinello approach (\cite{Parrinello:1980kx}),
+the main equations are listed in $\eqref{eq:rpeqm}$.
 The third case is called ``new cell dynamics'' and is based on
 $\eqref{eq:rpsdd}$ and $\eqref{eq:wenzhdd2}$,
 the last one is called ``strain dynamics'' and is based on
 $\eqref{eq:rpsdd}$ and $\eqref{eq:wenzhdd}$.
+Their corresponding flags, \texttt{mm}, \texttt{cm},
+\texttt{nm}, \texttt{sm}, are the structural optimization algorithms
+by finding the energy minimum. They are really fast
+based on their design.
 
-The simulation is done under zero temperature, as stated above.
+All simulations should be done at zero temperature in this code.
 
 \texttt{mxdtyp} denotes the array dimension for type of atoms,
 in the input file there will be a line labeled by \texttt{(ntype)}, it

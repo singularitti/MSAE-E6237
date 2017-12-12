@@ -4,12 +4,13 @@
 \label{sssec:crstl}
 
 This subroutine does some pre-setting work before \texttt{INIT}.
-
+An input file, named \texttt{inp}, is read to program runtime, and the flags
+specified in it are parsed.
 First read the $3 \times 3$ matrix \texttt{avec} from \texttt{inp} file.
 If \texttt{ic} flag is \texttt{'s'},
 since it is in reduced coordinates, we need to rewrite it in Cartesian
-coordinates. First store the sign of each entry, the do some transformation according to
-the corresponding \texttt{iop} matrix entry(\textcolor{red}{What is this?}). The
+coordinates. First store the sign of each entry, then do some transformation according to
+the corresponding \texttt{iop} matrix entry. The
 rules are
 \begin{equation}\label{eq:crstltrans}
 	h(i, j) = \sign \big( h(i, j) \big) \times a_0 \times n(j)
@@ -21,8 +22,7 @@ rules are
 	\end{cases}
 \end{equation}
 where $n(j)$ denotes the number of primitive cells along $j$th direction.
-If \texttt{ic} is \texttt{'c'}, i.e., in an intermediate run,
-then read \texttt{avec}, \texttt{avecd}, \texttt{avec2di} from last run as
+If \texttt{ic} is \texttt{'c'}, i.e., in an intermediate run, read \texttt{avec}, \texttt{avecd}, \texttt{avec2di} from last run as
 input for subsequent runs, and write them to standard output.
 
 \begin{table}[h]
@@ -35,7 +35,7 @@ input for subsequent runs, and write them to standard output.
 		lattice vectors matrix                 & $h = \{ \bm{a}, \bm{b}, \bm{c} \}$              & \texttt{avec}  \\
 		atomic position in reduced coordinates & $\bm{s}_i = \{\xi_i, \eta_i, \zeta_i\}$         & \texttt{rat}   \\
 		atomic velocity in reduced coordinates & $\dot{ \bm{s} }_i$                              & \texttt{ratd}  \\
-		number of primitive cells              & $n$                                             & \texttt{nsc}   \\
+		number of primitive cells              & $n_i$                                             & \texttt{nsc}   \\
 		lattice parameter                      & $a_0$                                           & \texttt{alatt} \\
 		fictitious mass                        & $W$                                             & \texttt{cmass} \\
 		external pressure                      & $P$                                             & \texttt{press} \\
@@ -48,19 +48,16 @@ input for subsequent runs, and write them to standard output.
 	\label{tab:crstl}%
 \end{table}%
 
-Then calculate cell volume $\Omega$, metric tensor $g$ and $g^{-1}$, which are
+Then calculate cell volume $\Omega$, metric tensor $g$ and its inverse $g^{-1}$, which are
 treated as part of the outputs of this subroutine.
-
-Then read positions \texttt{rat} for each atom of each type.
+In addition, read positions \texttt{rat} for each atom of each type.
 If \texttt{ic} flag is \texttt{'s'},
 then do similar transformation of these positions as $\eqref{eq:crstltrans}$ does;
-if it is \texttt{'c'}, i.e., it is an intermediate step, then read
+if it is \texttt{'c'}, i.e., in an intermediate step, read
 \texttt{avec}, \texttt{avecd}, \texttt{avec2di} from last run,
 and write to standard output.
-
-Then it calls \texttt{SPCEL} subroutine, build super cell along $3$ directions.
-
-Read \texttt{nstep} from input file, determine how many steps are
+Then it calls \texttt{SPCEL} subroutine, build a supercell along $3$ directions. On each direction,
+there are $n_i$ cells, where $n_i$ is the $i$th number given in \texttt{nsc} flag. 
+Then read \texttt{nstep} from input file, determine how many steps are
 to be performed in the following MD loop.
-
 At last it calls \texttt{RDPP} subroutine.

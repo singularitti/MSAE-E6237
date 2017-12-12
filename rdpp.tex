@@ -5,11 +5,11 @@
 This subroutine reads the pair-potential file.
 Here \texttt{ntype} is the number of different types of atoms.
 It reads the potential of $i$th atom and $j$th atom, where $j \geq i$.
+In all, $n (n+1)$ pair potentials are read, where $n$ denotes variable \texttt{ntype}.
 So in the code we need to do some assignments like
 \begin{align}
 	U_{ij}      & = U_{ji},      \\
 	\bm{F}_{ij} & = \bm{F}_{ji},
 \end{align}
 where $U_{ji}$ and $\bm{F}_{ji}$ are what we read from file.
-Thus we can save time on IO operations because the pair-potential
-file is symmetric.
+Thus we can save time on IO operations because the pair-potentials are symmetric.

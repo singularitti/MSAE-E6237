@@ -220,3 +220,4 @@ TSWLatexianTemp*
 *.xdv
 *.aux 
 report.pdf
+.DS_Store

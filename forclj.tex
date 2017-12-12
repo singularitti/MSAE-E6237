@@ -6,8 +6,9 @@
 The subroutine will first calculate the Cartesian distance between 2 atoms.
 It will call \texttt{ELJ} subroutine for each pair of atoms $i$ and $j$, in which
 the force between these $2$ atoms in both Cartesian and reduced coordinates
-are calculated, and denoted as \texttt{fo} and \texttt{fos}, respectively.
-More detailedly, \texttt{ELJ} uses the Lennard--Jones scheme.
+are calculated, denoted as \texttt{fo} and \texttt{fos} respectively.
+Besides, \texttt{ELJ} uses the Lennard--Jones scheme. This idea was first proposed by
+Rahman (\cite{rahman1964correlations}).
 
 The Lennard--Jones potential has general form
 \begin{equation}
@@ -36,7 +37,7 @@ which is plotted in Fig. \ref{fig:ljar}.
 	\caption{Lennard--Jones potential and force for $\ce{Ar}$, as a function of
 		distance between $2$ atoms, with
 		$\sigma=3.405\times 10^{-10}\si{\meter}$,
-		$\varepsilon = 1.654\times 10^{-21}\si{\joule}$.\cite{buffalomd}}
+		$\varepsilon = 1.654\times 10^{-21}\si{\joule}$ (data from \cite{buffalomd}).}
 	\label{fig:ljar}
 \end{figure}
 
@@ -45,6 +46,7 @@ it considers 2 cases: particle $j$ and $i$ in the same cell and
 in different cells, the first case is trivial, in the second case,
 we need to add multiple times of primitive vectors and then calculate distance
 $r_{ji}$, and the rest steps are the same as first case. In both cases, we do not
-consider interaction out of the radius $r_{\text{cut}}$.
+consider interaction out of the radius $r_{\text{cut}}$ (Which is the definition of 
+$r_\text{cut}$, though.).
 It appends \texttt{fo} and \texttt{fos} modified by \texttt{ELJ}
 subroutine to the \texttt{f} and \texttt{fs}, respectively.

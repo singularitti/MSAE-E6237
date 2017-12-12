@@ -4,13 +4,13 @@
 \label{sssec:sigs&p}
 
 \texttt{SIGP} subroutine is used to calculate lattice vectors accelerations
-based on `new cell dynamics', i.e., according to $\eqref{eq:rpsdd}$ and
-$\eqref{eq:wenzhdd2}$; while \texttt{SIGS} is based on `strain dynamics',
+based on ``new cell dynamics'', i.e., according to $\eqref{eq:rpsdd}$ and
+$\eqref{eq:wenzhdd2}$; while \texttt{SIGS} is based on ``strain dynamics'',
 i.e., $\eqref{eq:rpsdd}$ and $\eqref{eq:wenzhdd}$.
 At last, the result returned is $\ddot{h}$.
 
 In \texttt{SIGS} subroutine,
-firstly calculates $f_0^{-1}$, by definition it is
+firstly calculates $f_0^{-1}$. By definition it is
 \begin{equation}
 	f_0^{-1} = \frac{ h_0 \tran h_0}{ V_0^2 },
 \end{equation}
@@ -19,7 +19,7 @@ and perform calculation $\ddot{h} = \ddot{h} f_0^{-1}$.
 This subroutine also returns $\ddot{h}$ in the end.
 
 In \texttt{SIGP} subroutine,
-firstly calculates $f^{-1}$, by definition we know it is
+at first, calculates $f^{-1}$. As we know it is
 \begin{equation}
 	f^{-1} = \frac{ h \tran h }{ V^2 },
 \end{equation}
@@ -29,7 +29,7 @@ a $3\times 3 \times 3 \times 3$ tensor
 	f ' = \frac{ \partial f }{ \partial h_{ij} } = (\sigma'_{ij})\tran \sigma
 	+ \sigma \tran \sigma'_{ij},
 \end{equation}
-where $\sigma'$ is denoted as \texttt{sigmap} in code, another $3\times 3
+where $\sigma'$ is denoted as \texttt{sigmap} in code, another $81 = 3\times 3
 \times 3 \times 3$ tensor.
 $\dot{f}_0 = \dot{ \sigma } \tran \sigma + \sigma \tran \dot{ \sigma }$ is
 also calculated.

@@ -3,24 +3,26 @@
 \subsubsection{\texttt{INIT} subroutine}
 \label{sssec:init}
 
+This subroutine does some initialization work for later calculations.
 First call \texttt{RANV} subroutine,
-generate some initial random positions for each atom of each type.
+generate some initial random positions for each atom of each type,
+see Sec. \ref{sssec:ranv}.
 \texttt{ilj} is the only variable set by hand in code, if it is equal to $1$,
-the code will call \texttt{FORCLJ} subroutine, else it will call \texttt{FORC}
-subroutine, see \ref{sssec:forc} and \ref{sssec:forclj} for differences.
+the code will call \texttt{FORCLJ} subroutine, otherwise it will call \texttt{FORC}
+subroutine, see Sec. \ref{sssec:forc} and Sec. \ref{sssec:forclj} for their differences.
 
 Then if \texttt{calc} flag is not set to \texttt{md} and \texttt{mm},
-Rahman--Parrinello approach is conducted, see \ref{sssec:rpa} for detail.
-First, \texttt{gmgd}, i.e., $g^{-1} \dot{g}$ is calculated.
+Rahman--Parrinello approach is conducted, see Sec. \ref{sssec:rpa} for detail.
+At the beginning, \texttt{gmgd}, i.e., $g^{-1} \dot{g}$ is calculated.
 Then for each atom of each type,
 \texttt{rat2d}, i.e., $\ddot{\bm{s}}_i = g^{-1} \dot{g} \dot{ \bm{s} }_i$ is calculated.
-Also, \texttt{pim}, i.e., $\Pi$ is calculated according to $\eqref{eq:pim&frr}$.
-Then $\ddot{h}$ is calculated according to $\eqref{eq:hdd}$.
+Also, \texttt{pim}, the $\Pi$ matrix is calculated according to $\eqref{eq:pim&frr}$.
+And $\ddot{h}$ is calculated according to $\eqref{eq:hdd}$.
 
 If \texttt{calc} flag is set to \texttt{nd} or \texttt{nm}
 then \texttt{SIGP} is called, if it is set to \texttt{sd} or
-\texttt{sm} then \texttt{SIGS} is called, see \ref{sssec:sigs&p}
-for more detail.
+\texttt{sm} then \texttt{SIGS} is called, see Sec. \ref{sssec:sigs&p}
+for more details.
 From these $2$ subroutines we know
 \begin{equation}
 	\ddot{d} = \frac{ \ddot{h} }{ h_0 } = \frac{ \ddot{h} \sigma_0}{V_0},

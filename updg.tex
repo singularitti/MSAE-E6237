@@ -25,10 +25,10 @@ This part is used to update several quantities of cell during calculations.
 
 
 It first reads a flag \texttt{itg} to see if $\sigma$ and $V$ need to be calculated,
-if it is `yes', then do the following things:
-Firstly calculates $\sigma$ by the components of $h$, and then calculate the
+if it is \texttt{1}, then do the following things:
+First calculates $\sigma$ by the components of $h$, and then calculate the
 MD cell volume by
 \begin{equation}
 	V = \sigma \cdot h,
 \end{equation}
-and then calculate $g$, $\dot{ g }$, $g^{-1}$, $g^{-1}\dot{g}$, respectively.
+in the following steps calculate $g$, $\dot{ g }$, $g^{-1}$, $g^{-1}\dot{g}$, respectively.
