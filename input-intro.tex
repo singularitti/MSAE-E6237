@@ -26,7 +26,7 @@ s       n                         (ic,iio)
 0.00000   0.00100   200.00000     (temp,ttol,dt)
 \end{verbatim}
 
-This input file investigates $4$ \ce{Ar} atoms in a conventional FCC unit cell, 
+This input file investigates $4$ \ce{Ar} atoms in a conventional FCC unit cell,
 \ce{Ar}'s atomic mass is selected to be \SI{36.0}{\atomicmassunit},
 see Fig. \ref{fig:fcc1} for its crystal structure.
 The \texttt{calc} flag specifies calculation type, including \texttt{md},
@@ -47,20 +47,20 @@ And \texttt{dt} times \texttt{nstep} is the total simulation time in Rydberg uni
 they are labeled on the upper horizontal axis in all my plots.
 
 \begin{figure}[H]
-\begin{minipage}[t]{0.48\textwidth}
+	\begin{minipage}[t]{0.48\textwidth}
+		\centering
+		\input{Tikz/FCC1}
+		\caption{A conventional FCC unit cell of \ce{Ar}.}
+		\label{fig:fcc1}
+	\end{minipage}
+	\hfill
+	\begin {minipage}[t]{0.48\textwidth}
 	\centering
-	\input{Tikz/FCC1}
-	\caption{A conventional FCC unit cell of \ce{Ar}.}
-	\label{fig:fcc1}
-\end{minipage}
-\hfill
-\begin {minipage}[t]{0.48\textwidth}
-\centering
-\input{Tikz/FCC3}
-\caption{A primitive FCC unit cell of \ce{Ar}, with
-	vertices filled in red.}
-\label{fig:fcc3}
-\end{minipage}
+	\input{Tikz/FCC3}
+	\caption{A primitive FCC unit cell of \ce{Ar}, with
+		vertices filled in red.}
+	\label{fig:fcc3}
+	\end{minipage}
 \end{figure}
 
 Now we are going to play with Wentzcovitch's molecular dynamics, to see what the
@@ -155,73 +155,73 @@ The results are plotted in Fig. \ref{fig:inp1run} for references.
 
 From Fig. \ref{fig:inp1run:mini:subfig:b} we can approximately assume that the equilibrium
 lattice parameter is around \SI{9.9}{\bohr}, where vibration happens back and forth.
-But the code also provides a \texttt{nm} algorithm by adding a damping mechanism 
+But the code also provides a \texttt{nm} algorithm by adding a damping mechanism
 to let us compute energy-minimized structure quickly. So we keep the fictitious mass fixed,
 and then run the structural optimization algorithm. The stabilized structure also has a
-lattice parameter around \SI{9.9}{\bohr}, which strengthen the credibility of our MD result. 
+lattice parameter around \SI{9.9}{\bohr}, which strengthen the credibility of our MD result.
 See Fig. \ref{fig:inp5} for references.
 
 \begin{figure}[H]
-  \begin{minipage}[t]{0.48\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{100_500_2010_9}
-    \subcaption{Energies for structure minimization versus time.}
-    \label{fig:inp5:mini:subfig:a}   %% label for first subfigure 
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.48\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{100_500_2010_3_avec}
-    \subcaption{Lattice parameters versus time, the final result is around \SI{9.9}{\bohr}.
-    We can see inflections points on the curve, that's where the velocity changes sign and then forced to be $0$.}
-    \label{fig:inp5:mini:subfig:b}   %% label for second subfigure 
-  \end{minipage}
-  \caption{Wentzcovitch's structural optimization algorithm \texttt{nm} for a conventional FCC cell of \ce{Ar}, with \texttt{dt} $=500$, $100$ time steps, and $W = 0.001$.}
-  \label{fig:inp5}   %% label for entire figure 
+	\begin{minipage}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{100_500_2010_9}
+		\subcaption{Energies for structure minimization versus time.}
+		\label{fig:inp5:mini:subfig:a}   %% label for first subfigure 
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{100_500_2010_3_avec}
+		\subcaption{Lattice parameters versus time, the final result is around \SI{9.9}{\bohr}.
+			We can see inflections points on the curve, that's where the velocity changes sign and then forced to be $0$.}
+		\label{fig:inp5:mini:subfig:b}   %% label for second subfigure 
+	\end{minipage}
+	\caption{Wentzcovitch's structural optimization algorithm \texttt{nm} for a conventional FCC cell of \ce{Ar}, with \texttt{dt} $=500$, $100$ time steps, and $W = 0.001$.}
+	\label{fig:inp5}   %% label for entire figure 
 \end{figure}
 
 By far we only investigated the conventional cell of FCC \ce{Ar}.
-Now let's come to the primitive cell. Inside, 
+Now let's come to the primitive cell. Inside,
 there is only $1$ \ce{Ar} atom in the cell, shown in Fig. \ref{fig:fcc3}. Thus the cell size decreases to $\frac{ 1 }{ 4 }$ of the original one (defined in \texttt{inp1}).
 Other parameters are the same as \texttt{inp1}.
 The results are shown in Fig. \ref{fig:inp3run}.
 
 \begin{figure}[H]
-  \begin{minipage}[t]{0.48\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{2000_75_100_0}
-    \subcaption{Energies of the primitive cell and atoms versus time.}
-    \label{fig:inp3run:mini:subfig:a}   %% label for first subfigure 
-  \end{minipage}
-  \hfill
-  \begin{minipage}[t]{0.48\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{2000_75_100_5_avec}
-    \subcaption{Cell vectors oscillation versus time.}
-    \label{fig:inp3run:mini:subfig:b}   %% label for second subfigure 
-  \end{minipage}
-  \caption{Wentzcovitch's \texttt{nd} for a primitive FCC cell of \ce{Ar} at \SI{0}{\kelvin}, with \texttt{dt} $=75$, $2000$ time steps, $W = 0.001$.}
-  \label{fig:inp3run}   %% label for entire figure 
+	\begin{minipage}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{2000_75_100_0}
+		\subcaption{Energies of the primitive cell and atoms versus time.}
+		\label{fig:inp3run:mini:subfig:a}   %% label for first subfigure 
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{2000_75_100_5_avec}
+		\subcaption{Cell vectors oscillation versus time.}
+		\label{fig:inp3run:mini:subfig:b}   %% label for second subfigure 
+	\end{minipage}
+	\caption{Wentzcovitch's \texttt{nd} for a primitive FCC cell of \ce{Ar} at \SI{0}{\kelvin}, with \texttt{dt} $=75$, $2000$ time steps, $W = 0.001$.}
+	\label{fig:inp3run}   %% label for entire figure 
 \end{figure}
 
 \begin{figure}[h]
-  \centering
-  \begin{minipage}[t]{.48\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{2000_75_100_3}
-    \subcaption{Energies of the primitive cell and atoms versus time.}
-    \label{fig:inp4:a}
-  \end{minipage}%
-  \hfill
-  \begin{minipage}[t]{.48\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{2000_75_100_0_avec}
-    \subcaption{Cell vectors oscillation versus time.}
-    \label{fig:inp4:b}
-  \end{minipage}
-  \caption{
-    Wentzcovitch's \texttt{nd} for a primitive FCC cell of \ce{Ar} at \SI{0}{\kelvin}, with \texttt{dt} $=75$, $2000$ time steps, $W = 0.004$.}
-  \label{fig:inp4}
+	\centering
+	\begin{minipage}[t]{.48\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{2000_75_100_3}
+		\subcaption{Energies of the primitive cell and atoms versus time.}
+		\label{fig:inp4:a}
+	\end{minipage}%
+	\hfill
+	\begin{minipage}[t]{.48\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{2000_75_100_0_avec}
+		\subcaption{Cell vectors oscillation versus time.}
+		\label{fig:inp4:b}
+	\end{minipage}
+	\caption{
+		Wentzcovitch's \texttt{nd} for a primitive FCC cell of \ce{Ar} at \SI{0}{\kelvin}, with \texttt{dt} $=75$, $2000$ time steps, $W = 0.004$.}
+	\label{fig:inp4}
 \end{figure}
 
 However, in comparison with Fig. \ref{fig:inp1run},
@@ -235,7 +235,7 @@ both increase by a factor of $2$, which is not astonishing because from
 \end{equation}
 where $B$ is the bulk modulus, a fixed quantity for every material. So to make this MD
 have the same frequency as \texttt{inp1}, we need to adjust the fictitious mass $W$ to be
-four times of the original one, i.e., $0.004$. 
+four times of the original one, i.e., $0.004$.
 Now the result, shown in Fig. \ref{fig:inp4}, is the same as Fig. \ref{fig:inp1run}. So we find a powerful tool! Whenever the cell volume has changed, we can always
 adjust $W$ to recover the original frequencies. We will talk about this a little bit later.
 
@@ -255,7 +255,7 @@ adjust $W$ to recover the original frequencies. We will talk about this a little
 		\label{fig:andersen0:mini:subfig:b}   %% label for second subfigure 
 	\end{minipage}
 	\caption{Andersen's \texttt{md} for a conventional FCC cell of \ce{Ar} at \SI{0}{\kelvin}, with
-  \texttt{dt} $=75$, $2000$ time steps.}
+		\texttt{dt} $=75$, $2000$ time steps.}
 	\label{fig:andersen0}   %% label for entire figure 
 \end{figure}
 
@@ -292,23 +292,23 @@ integrator with larger period need not to wait for the other one. This will save
 time.
 
 \begin{figure}[H]
-  \centering
-  \begin{minipage}[t]{.48\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{32_atom_2000+75+100-3}
-    \subcaption{Energies of the primitive cell and atoms versus time.}
-    \label{fig:32atom:a}
-  \end{minipage}%
-  \hfill
-  \begin{minipage}[t]{.48\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{32_atom_2000+75+100-5avec}
-    \subcaption{Cell vectors oscillation versus time.}
-    \label{fig:32atom:b}
-  \end{minipage}
-  \caption{Wentzcovitch's \texttt{nd} for $32$ \ce{Ar} atoms at \SI{0}{\kelvin},
-    with \texttt{dt} $= 75$, $2000$ time steps, $W = 0.000325$.}
-  \label{fig:32atom}
+	\centering
+	\begin{minipage}[t]{.48\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{32_atom_2000+75+100-3}
+		\subcaption{Energies of the primitive cell and atoms versus time.}
+		\label{fig:32atom:a}
+	\end{minipage}%
+	\hfill
+	\begin{minipage}[t]{.48\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{32_atom_2000+75+100-5avec}
+		\subcaption{Cell vectors oscillation versus time.}
+		\label{fig:32atom:b}
+	\end{minipage}
+	\caption{Wentzcovitch's \texttt{nd} for $32$ \ce{Ar} atoms at \SI{0}{\kelvin},
+		with \texttt{dt} $= 75$, $2000$ time steps, $W = 0.000325$.}
+	\label{fig:32atom}
 \end{figure}
 
 After this step, we can extend this MD with more atoms (larger supercells), like a $32$-atom-supercell.

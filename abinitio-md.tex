@@ -64,11 +64,11 @@ Thus the corresponding equations of motion are
 	\frac{ \delta E}{ \delta \psi_i^\ast (\bm{r}, t)} + \sum_{k}
 	\Lambda_{ik} \psi_k (\bm{r}, t) =
 	- \hat{H} \psi_i(\bm{r}, t) + \sum_{k}
-	\Lambda_{ik} \psi_k (\bm{r}, t)\\
+	\Lambda_{ik} \psi_k (\bm{r}, t)                        \\
 	M_I \ddot{\bm{R}}_I           & =
 	\frac{ \partial \mathcal{L}' }{ \partial \bm{R}_I } =
 	\bm{F}_{I} =
-	- \frac{ \partial E }{ \partial \bm{R}_I } \thinspace,\\
+	- \frac{ \partial E }{ \partial \bm{R}_I } \thinspace, \\
 	\mu_{\nu} \ddot{\alpha}_{\nu} & =
 	\frac{ \partial \mathcal{L}' }{ \partial \alpha_{\nu} } =
 	- \frac{ \partial E }{ \partial \alpha_{\nu} } \thinspace,
@@ -83,9 +83,9 @@ These equations can be simulated by the Verlet algorithm, that is,
 		\bigg[
 			\hat{H} \psi_{i} ^ {n} (\bm{r}) - \sum_{k}
 			\Lambda_{ik} \psi_k (\bm{r}, t)
-			\bigg],\label{eq:cpst}\\
+		\bigg],\label{eq:cpst}                                           \\
 		\bm{R}_{I}^{n+1}       & = 2 \bm{R}_{I}^{n} - \bm{R}_{I}^{n-1} +
-		\frac{ h^2 }{ M_I } \bm{F}_{I} \thinspace,\\
+		\frac{ h^2 }{ M_I } \bm{F}_{I} \thinspace,                       \\
 		\alpha_{\nu}^{n+1}     & = 2 \alpha_{\nu}^{n} -
 		\alpha_{\nu}^{n-1} -
 		\frac{ h^2 }{ \mu_{\nu} }

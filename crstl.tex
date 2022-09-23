@@ -35,7 +35,7 @@ input for subsequent runs, and write them to standard output.
 		lattice vectors matrix                 & $h = \{ \bm{a}, \bm{b}, \bm{c} \}$              & \texttt{avec}  \\
 		atomic position in reduced coordinates & $\bm{s}_i = \{\xi_i, \eta_i, \zeta_i\}$         & \texttt{rat}   \\
 		atomic velocity in reduced coordinates & $\dot{ \bm{s} }_i$                              & \texttt{ratd}  \\
-		number of primitive cells              & $n_i$                                             & \texttt{nsc}   \\
+		number of primitive cells              & $n_i$                                           & \texttt{nsc}   \\
 		lattice parameter                      & $a_0$                                           & \texttt{alatt} \\
 		fictitious mass                        & $W$                                             & \texttt{cmass} \\
 		external pressure                      & $P$                                             & \texttt{press} \\
@@ -57,7 +57,7 @@ if it is \texttt{'c'}, i.e., in an intermediate step, read
 \texttt{avec}, \texttt{avecd}, \texttt{avec2di} from last run,
 and write to standard output.
 Then it calls \texttt{SPCEL} subroutine, build a supercell along $3$ directions. On each direction,
-there are $n_i$ cells, where $n_i$ is the $i$th number given in \texttt{nsc} flag. 
+there are $n_i$ cells, where $n_i$ is the $i$th number given in \texttt{nsc} flag.
 Then read \texttt{nstep} from input file, determine how many steps are
 to be performed in the following MD loop.
 At last it calls \texttt{RDPP} subroutine.

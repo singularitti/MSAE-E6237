@@ -5,12 +5,12 @@
 This subroutine is where the Beeman algorithm, introduced in Sec. \ref{sec:open}, is used.
 Then it calculates total atomic kinetic energy by
 $E_a = \frac{ 1 }{ 2 } \sum_{i=1}^{N} m_i \dot{ \bm{s} }_i \tran
-g \dot{ \bm{s} }_i$ for each atom of each type,
+	g \dot{ \bm{s} }_i$ for each atom of each type,
 and total atomic potential $U_a = \sum_{i} u_i$ from \texttt{FORCLJ} or \texttt{FORC}
 subroutines.
 When it comes to the lattice contribution, it is the same as \texttt{INIT} subroutine,
 i.e., as $\eqref{eq:calc}$ shows. Then lattice contribution $U_l$, $E_l$, and
-$\mathscr{E}_l$ can be calculated. The variables and their physical notations are given in 
+$\mathscr{E}_l$ can be calculated. The variables and their physical notations are given in
 Tab. \ref{tab:move}.
 
 \begin{table}[h]
@@ -18,7 +18,7 @@ Tab. \ref{tab:move}.
 	\caption{List of some variables in \texttt{MOVE} subroutine.}
 	\begin{tabular}{@{}rlcc@{}}
 		\toprule
-		\multicolumn{2}{c}{variable name} & variable symbol & variable \\
+		\multicolumn{2}{c}{variable name}                                                 & variable symbol  & variable                       \\
 		\midrule
 		\multirow{3}[2]{*}{atomic contribution to total}                                  & potential energy & $U_a$           & \texttt{uta} \\
 		                                                                                  & kinetic energy   & $E_a$           & \texttt{eka} \\
